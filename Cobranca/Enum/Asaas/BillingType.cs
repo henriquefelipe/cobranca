@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarteiraDigital.Enum.Asaas
+namespace Cobranca.Enum.Asaas
 {
     public class BillingType
     {

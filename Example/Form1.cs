@@ -1,4 +1,5 @@
 ﻿using Cobranca.Domain;
+using Cobranca.Domain.Boleto;
 using Cobranca.Service;
 using System;
 using System.Collections.Generic;
@@ -30,10 +31,10 @@ namespace Example
             cboTipo.DataSource = Enum.GetValues(typeof(Cobranca.Enum.Tipo));
         }
 
-        public Credenciais GetCredenciais()
+        public Credenciais GetCredenciaisGerenciaNet()
         {
             var credenciais = new Credenciais();
-            credenciais.operadora = (Cobranca.Enum.Operadora)cboOperadora.SelectedItem;
+            credenciais.operadora = Cobranca.Enum.Operadora.GerenciaNet;
             credenciais.tipo = (Cobranca.Enum.Tipo)cboTipo.SelectedItem;
             credenciais.caminhoCertificado = txtGerenciaNetCertificado.Text;
             credenciais.client_id = txtGerenciaNetClientID.Text;
@@ -43,33 +44,81 @@ namespace Example
             return credenciais;
         }
 
-        
+        public Credenciais GetCredenciaisAsaas()
+        {
+            var credenciais = new Credenciais();
+            credenciais.operadora = Cobranca.Enum.Operadora.Asaas;
+            credenciais.tipo = (Cobranca.Enum.Tipo)cboTipo.SelectedItem;            
+            credenciais.chave = txtAsaasChave.Text;
+
+            return credenciais;
+        }
+
+        public Credenciais GetCredenciais()
+        {
+            var operadora = (Cobranca.Enum.Operadora)cboOperadora.SelectedItem;            
+            if (operadora == Cobranca.Enum.Operadora.GerenciaNet)
+                return GetCredenciaisGerenciaNet();
+            else if (operadora == Cobranca.Enum.Operadora.Asaas)
+                return GetCredenciaisAsaas();
+
+             return new Credenciais();
+        }
+
         private void btnGerarCobranca_Click(object sender, EventArgs e)
         {
             var credenciais = GetCredenciais();
 
-            _id = Guid.NewGuid().ToString("N");
-
-            var recebimento = new Recebimento();
-            recebimento.Id = _id;
-            //cobranca.DevedorNome = "Consumidor Final";
-            //cobranca.DevedorCpf = "72088500030";
-            recebimento.SolicitacaoPagador = "IzzyWay Tecnologia";
-            recebimento.Valor = Convert.ToDecimal(txtValor.Text);
-
-            var carteiraDigitalService = new CobrancaService(credenciais);
-            var result = carteiraDigitalService.Cobrar(recebimento);
-            if(!result.Success)
+            if (credenciais.tipo == Cobranca.Enum.Tipo.PIX)
             {
-                MessageBox.Show(result.Message);
-                return;
+                _id = Guid.NewGuid().ToString("N");
+
+                var recebimento = new Recebimento();
+                recebimento.Id = _id;
+                //cobranca.DevedorNome = "Consumidor Final";
+                //cobranca.DevedorCpf = "72088500030";
+                recebimento.SolicitacaoPagador = "IzzyWay Tecnologia";
+                recebimento.Valor = Convert.ToDecimal(txtValor.Text);
+
+                var cobrancaService = new CobrancaService(credenciais);
+                var result = cobrancaService.CobrarPix(recebimento);
+                if (!result.Success)
+                {
+                    MessageBox.Show(result.Message);
+                    return;
+                }
+
+                var base64 = result.Result.ImagemQrCode.Replace("data:image/png;base64,", "");
+                var pic = Convert.FromBase64String(base64);
+                using (MemoryStream ms = new MemoryStream(pic))
+                {
+                    imgQrCode.Image = Image.FromStream(ms);
+                }
             }
-
-            var base64 = result.Result.ImagemQrCode.Replace("data:image/png;base64,", "");
-            var pic = Convert.FromBase64String(base64);
-            using (MemoryStream ms = new MemoryStream(pic))
+            else if (credenciais.tipo == Cobranca.Enum.Tipo.Boleto)
             {
-                imgQrCode.Image = Image.FromStream(ms);
+                var boleto = new Boleto();
+                boleto.pagador = new BoletoPagador();
+                boleto.pagador.codigo = "00393389324";
+                boleto.vencimento = DateTime.Now.AddDays(2);
+                boleto.valor = Convert.ToDecimal(txtValor.Text);
+
+                //var cobrancaService = new CobrancaService(credenciais);
+                //var result = cobrancaService.CobrarBoleto(boleto);
+                //if (!result.Success)
+                //{
+                //    MessageBox.Show(result.Message);
+                //    return;
+                //}
+                var pagador = new BoletoPagador();
+
+                var cobrancaService = new CobrancaService(credenciais);
+                var result = cobrancaService.CobrarBoletoCadastrarCliente(pagador);
+                if (!result.Success)
+                {
+                    MessageBox.Show(result.Message);
+                    return;
+                }
             }
         }
 
@@ -80,11 +129,11 @@ namespace Example
                 MessageBox.Show("Nenhuma cobrança gerada");
                 return;
             }
-
-            var credenciais = GetCredenciais();            
             
+            var credenciais = GetCredenciais();
+
             var carteiraDigitalService = new CobrancaService(credenciais);
-            var result = carteiraDigitalService.Status(_id);
+            var result = carteiraDigitalService.StatusPix(_id);
             if (!result.Success)
             {
                 MessageBox.Show(result.Message);
@@ -115,7 +164,7 @@ namespace Example
             var valor = Convert.ToDecimal(txtValor.Text);
 
             var carteiraDigitalService = new CobrancaService(credenciais);
-            var result = carteiraDigitalService.Devolucao(_id, _id2, valor);
+            var result = carteiraDigitalService.DevolucaoPix(_id, _id2, valor);
             if (result.Success)
             {
                 MessageBox.Show("Devolvido com sucesso");

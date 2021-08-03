@@ -38,6 +38,8 @@ namespace Example
             this.imgQrCode = new System.Windows.Forms.PictureBox();
             this.btnDevolucaoCobranca = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPageAsaas = new System.Windows.Forms.TabPage();
+            this.tabPageInter = new System.Windows.Forms.TabPage();
             this.tabPageGerenciaNet = new System.Windows.Forms.TabPage();
             this.txtGerenciaNetChave = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -49,10 +51,11 @@ namespace Example
             this.label3 = new System.Windows.Forms.Label();
             this.cboTipo = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.tabPageAsaas = new System.Windows.Forms.TabPage();
-            this.tabPageInter = new System.Windows.Forms.TabPage();
+            this.txtAsaasChave = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imgQrCode)).BeginInit();
             this.tabControl1.SuspendLayout();
+            this.tabPageAsaas.SuspendLayout();
             this.tabPageGerenciaNet.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -146,6 +149,26 @@ namespace Example
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(809, 189);
             this.tabControl1.TabIndex = 8;
+            // 
+            // tabPageAsaas
+            // 
+            this.tabPageAsaas.Controls.Add(this.txtAsaasChave);
+            this.tabPageAsaas.Controls.Add(this.label8);
+            this.tabPageAsaas.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAsaas.Name = "tabPageAsaas";
+            this.tabPageAsaas.Size = new System.Drawing.Size(801, 163);
+            this.tabPageAsaas.TabIndex = 1;
+            this.tabPageAsaas.Text = "Asaas";
+            this.tabPageAsaas.UseVisualStyleBackColor = true;
+            // 
+            // tabPageInter
+            // 
+            this.tabPageInter.Location = new System.Drawing.Point(4, 22);
+            this.tabPageInter.Name = "tabPageInter";
+            this.tabPageInter.Size = new System.Drawing.Size(801, 163);
+            this.tabPageInter.TabIndex = 2;
+            this.tabPageInter.Text = "Banco Inter";
+            this.tabPageInter.UseVisualStyleBackColor = true;
             // 
             // tabPageGerenciaNet
             // 
@@ -261,23 +284,24 @@ namespace Example
             this.label7.TabIndex = 9;
             this.label7.Text = "Tipo";
             // 
-            // tabPageAsaas
+            // txtAsaasChave
             // 
-            this.tabPageAsaas.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAsaas.Name = "tabPageAsaas";
-            this.tabPageAsaas.Size = new System.Drawing.Size(801, 163);
-            this.tabPageAsaas.TabIndex = 1;
-            this.tabPageAsaas.Text = "Asaas";
-            this.tabPageAsaas.UseVisualStyleBackColor = true;
+            this.txtAsaasChave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAsaasChave.Location = new System.Drawing.Point(146, 19);
+            this.txtAsaasChave.Name = "txtAsaasChave";
+            this.txtAsaasChave.Size = new System.Drawing.Size(639, 26);
+            this.txtAsaasChave.TabIndex = 17;
+            this.txtAsaasChave.Text = "bc49ff43e4786b4fb4f4c6fb5c896f166c176136ef58764c05a4c86aa2d7d69f";
             // 
-            // tabPageInter
+            // label8
             // 
-            this.tabPageInter.Location = new System.Drawing.Point(4, 22);
-            this.tabPageInter.Name = "tabPageInter";
-            this.tabPageInter.Size = new System.Drawing.Size(801, 163);
-            this.tabPageInter.TabIndex = 2;
-            this.tabPageInter.Text = "Banco Inter";
-            this.tabPageInter.UseVisualStyleBackColor = true;
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(10, 25);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(54, 20);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Chave";
             // 
             // Form1
             // 
@@ -297,10 +321,12 @@ namespace Example
             this.Controls.Add(this.btnGerarCobranca);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Example de Carteira Digital";
+            this.Text = "Exemplo de Cobrança";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imgQrCode)).EndInit();
             this.tabControl1.ResumeLayout(false);
+            this.tabPageAsaas.ResumeLayout(false);
+            this.tabPageAsaas.PerformLayout();
             this.tabPageGerenciaNet.ResumeLayout(false);
             this.tabPageGerenciaNet.PerformLayout();
             this.ResumeLayout(false);
@@ -332,6 +358,8 @@ namespace Example
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TabPage tabPageAsaas;
         private System.Windows.Forms.TabPage tabPageInter;
+        private System.Windows.Forms.TextBox txtAsaasChave;
+        private System.Windows.Forms.Label label8;
     }
 }
 

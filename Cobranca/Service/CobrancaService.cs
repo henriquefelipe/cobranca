@@ -1,4 +1,5 @@
 ﻿using Cobranca.Domain;
+using Cobranca.Domain.Boleto;
 using Cobranca.Enum;
 using Cobranca.Operadora;
 using Cobranca.Utils;
@@ -19,80 +20,114 @@ namespace Cobranca.Service
             this.credenciais = credenciais;
         }
 
-        public GenericResult<RecebimentoResult> Cobrar(Recebimento cobranca)
+        public GenericResult<RecebimentoResult> CobrarBoleto(Boleto boleto)
         {
             var result = new GenericResult<RecebimentoResult>();
             result.Result = new RecebimentoResult();
 
-            if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
+            if (this.credenciais.operadora == Enum.Operadora.Asaas)
             {
-                if (this.credenciais.tipo == Enum.Tipo.Boleto)
-                {
-                    throw new ArgumentException("Boleto não implementado");
-                }
-                else if (this.credenciais.tipo == Enum.Tipo.PIX)
-                {
-                    var gerenciaNet = new GerenciaNet(this.credenciais);
-                    var resultToken = gerenciaNet.Token();
-                    if (!resultToken.Success)
-                    {
-                        result.Message = "Token: " + resultToken.Message;
-                        return result;
-                    }
-
-                    if (string.IsNullOrEmpty(cobranca.Id))
-                    {
-                        cobranca.Id = Guid.NewGuid().ToString("N");
-                    }
-
-                    var pagamento = new Pagamento()
-                    {
-                        calendario = new calendario
-                        {
-                            expiracao = 3600
-                        },
-                        valor = new valor
-                        {
-                            original = Util.GetValorFormatado(cobranca.Valor)
-                        },
-                        chave = this.credenciais.chave,
-                        solicitacaoPagador = cobranca.SolicitacaoPagador
-                    };
-
-                    if (!string.IsNullOrEmpty(cobranca.DevedorCpf) && !string.IsNullOrEmpty(cobranca.DevedorNome))
-                    {
-                        pagamento.devedor = new devedor
-                        {
-                            cpf = cobranca.DevedorCpf,
-                            nome = cobranca.DevedorNome
-                        };
-                    }
-
-                    var resultCob = gerenciaNet.PixCob(resultToken.Result.access_token, pagamento, cobranca.Id);
-                    if (!resultCob.Success)
-                    {
-                        result.Message = "Cob: " + resultCob.Message;
-                        return result;
-                    }
-
-                    var resultLoc = gerenciaNet.PixLoc(resultToken.Result.access_token, resultCob.Result);
-                    if (!resultCob.Success)
-                    {
-                        result.Message = "Loc: " + resultCob.Message;
-                        return result;
-                    }
-
-                    result.Result.Chave = cobranca.Id;
-                    result.Result.ImagemQrCode = resultLoc.Result.imagemQrcode;
-                    result.Result.QrCode = resultLoc.Result.qrcode;
-                    result.Success = true;
-                }
+                var asaas = new Asaas(credenciais);
+                asaas.Payments(boleto);
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
+            {
+                result.Message = "Boleto não implementado para o gerencianet";
             }
 
             return result;
         }
 
-        public GenericResult<RecebimentoStatusResult> Status(string idCob)
+        public GenericResult<RecebimentoResult> CobrarBoletoCadastrarCliente(BoletoPagador pagador)
+        {
+            var result = new GenericResult<RecebimentoResult>();
+            result.Result = new RecebimentoResult();
+
+            if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                var asaas = new Asaas(credenciais);
+                asaas.Customers(pagador);
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
+            {
+                result.Message = "Boleto não implementado para o gerencianet";
+            }
+
+            return result;
+        }
+
+        #region PIX
+        public GenericResult<RecebimentoResult> CobrarPix(Recebimento cobranca)
+        {
+            var result = new GenericResult<RecebimentoResult>();
+            result.Result = new RecebimentoResult();
+
+            if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                result.Message = "PIX não implementado para o asaas";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
+            {
+                var gerenciaNet = new GerenciaNet(this.credenciais);
+                var resultToken = gerenciaNet.Token();
+                if (!resultToken.Success)
+                {
+                    result.Message = "Token: " + resultToken.Message;
+                    return result;
+                }
+
+                if (string.IsNullOrEmpty(cobranca.Id))
+                {
+                    cobranca.Id = Guid.NewGuid().ToString("N");
+                }
+
+                var pagamento = new Pagamento()
+                {
+                    calendario = new calendario
+                    {
+                        expiracao = 3600
+                    },
+                    valor = new valor
+                    {
+                        original = Util.GetValorFormatado(cobranca.Valor)
+                    },
+                    chave = this.credenciais.chave,
+                    solicitacaoPagador = cobranca.SolicitacaoPagador
+                };
+
+                if (!string.IsNullOrEmpty(cobranca.DevedorCpf) && !string.IsNullOrEmpty(cobranca.DevedorNome))
+                {
+                    pagamento.devedor = new devedor
+                    {
+                        cpf = cobranca.DevedorCpf,
+                        nome = cobranca.DevedorNome
+                    };
+                }
+
+                var resultCob = gerenciaNet.PixCob(resultToken.Result.access_token, pagamento, cobranca.Id);
+                if (!resultCob.Success)
+                {
+                    result.Message = "Cob: " + resultCob.Message;
+                    return result;
+                }
+
+                var resultLoc = gerenciaNet.PixLoc(resultToken.Result.access_token, resultCob.Result);
+                if (!resultCob.Success)
+                {
+                    result.Message = "Loc: " + resultCob.Message;
+                    return result;
+                }
+
+                result.Result.Chave = cobranca.Id;
+                result.Result.ImagemQrCode = resultLoc.Result.imagemQrcode;
+                result.Result.QrCode = resultLoc.Result.qrcode;
+                result.Success = true;
+            }
+
+            return result;
+        }
+
+        public GenericResult<RecebimentoStatusResult> StatusPix(string idCob)
         {
             var result = new GenericResult<RecebimentoStatusResult>();
             result.Result = new RecebimentoStatusResult();
@@ -139,7 +174,7 @@ namespace Cobranca.Service
             return result;
         }
 
-        public GenericResult<DevolucaoResult> Devolucao(string idCob, string idStatusEnd, decimal valor)
+        public GenericResult<DevolucaoResult> DevolucaoPix(string idCob, string idStatusEnd, decimal valor)
         {
             var result = new GenericResult<DevolucaoResult>();
             result.Result = new DevolucaoResult();
@@ -175,5 +210,7 @@ namespace Cobranca.Service
 
             return result;
         }
+
+        #endregion
     }
 }

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarteiraDigital.Enum.Asaas
+namespace Cobranca.Enum.Asaas
 {
-    class TipoDesconto
+    public class TipoDesconto
     {
+        public const string FIXED = "FIXED"; //Valor fixo
+        public const string PERCENTAGE = "PERCENTAGE"; //Valor percentual
     }
 }
