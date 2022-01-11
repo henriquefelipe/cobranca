@@ -1,4 +1,5 @@
 ﻿using Cobranca.Domain;
+using Cobranca.Domain.Asaas;
 using Cobranca.Domain.Boleto;
 using Cobranca.Enum.Asaas;
 using Cobranca.Utils;
@@ -14,7 +15,8 @@ namespace Cobranca.Operadora
 {
     public class Asaas
     {
-        private const string URL_BASE = "https://www.asaas.com/api/v3/";        
+        private const string URL_BASE = "https://www.asaas.com/api/v3/"; // PRODUÇÃO
+        //private const string URL_BASE = "https://sandbox.asaas.com/api/v3/"; // HOMOLOGAÇÃO
         private const string URL_PAYMENTS = "payments";
         private const string URL_CUSTOMERS = "customers";
 
@@ -41,18 +43,18 @@ namespace Cobranca.Operadora
                     customer =  boleto.pagador.codigo,
                     billingType = BillingType.BOLETO,
                     dueDate = boleto.vencimento.ToString("yyyy-MM-dd"),
-                    value = 100.00,
+                    value = boleto.valor,
                     description = boleto.descricao,
                     externalReference = boleto.externalReference,
                     discount = new {                        
-                        value = 10.00,
+                        value = 0.00,
                         dueDateLimitDays = 0
                     },
                     fine = new {
-                        value = 1.00
+                        value = 0.00
                     },
                     interest = new {
-                        value = 2.00
+                        value = 0.00
                     },
                     postalService = boleto.postalService
                 };
@@ -85,9 +87,46 @@ namespace Cobranca.Operadora
             return result;
         }
 
-        public GenericResult<Usuario> Customers(BoletoPagador pagador)
+        public GenericResult<CobrancaResult> PaymentsFilters(string parametros)
         {
-            var result = new GenericResult<Usuario>();
+            var result = new GenericResult<CobrancaResult>();
+            try
+            {
+                if (string.IsNullOrEmpty(this.credenciais.chave))
+                {
+                    result.Message = "chave não informado";
+                    return result;
+                }
+                
+                var client = new RestClient(string.Format("{0}{1}?{2}", URL_BASE, URL_PAYMENTS, parametros));
+                var request = new RestRequest(Method.GET);
+
+                request.AddHeader("access_token", this.credenciais.chave);
+                request.AddHeader("Content-Type", "application/json");                
+
+                IRestResponse restResponse = client.Execute(request);
+                string responseContent = restResponse.Content;
+
+                if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    result.Result = JsonConvert.DeserializeObject<CobrancaResult>(responseContent);
+                    result.Success = true;
+                }
+                else
+                {
+                    result.Message = responseContent;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+            }
+            return result;
+        }
+
+        public GenericResult<BoletoPagadorRetorno> Customers(BoletoPagador pagador)
+        {
+            var result = new GenericResult<BoletoPagadorRetorno>();
             try
             {
                 if (string.IsNullOrEmpty(this.credenciais.chave))
@@ -98,22 +137,22 @@ namespace Cobranca.Operadora
 
                 var dados = new
                 {
-                    name = "Marcelo Almeida",
-                    email = "marcelo.almeida@gmail.com",
-                    phone = "4738010919",
-                    mobilePhone = "4799376637",
-                    cpfCnpj = "24971563792",
-                    postalCode = "01310-000",
-                    address = "Av. Paulista",
-                    addressNumber = "150",
-                    complement = "Sala 201",
-                    province = "Centro",
-                    externalReference = "12987382",
+                    name = pagador.nome,
+                    email = pagador.email,
+                    phone = pagador.telefone,
+                    mobilePhone = pagador.telefone,
+                    cpfCnpj = pagador.cnpjcpf,
+                    postalCode = pagador.cep,
+                    address = pagador.endereco,
+                    addressNumber = pagador.numero,
+                    complement = pagador.complemento,
+                    province = pagador.bairro,
+                    externalReference = pagador.codigo,
                     notificationDisabled = false,
-                    additionalEmails = "marcelo.almeida2@gmail.com,marcelo.almeida3@gmail.com",
-                    municipalInscription = "46683695908",
-                    stateInscription = "646681195275",
-                    observations = "ótimo pagador, nenhum problema até o momento"
+                    //additionalEmails = "henrique@izzyway.com.br,comercial@izzyway.com.br",
+                    //municipalInscription = "46683695908",
+                    //stateInscription = "646681195275",
+                    observations = pagador.observacao
                 };
 
                 var json = JsonConvert.SerializeObject(dados);
@@ -129,8 +168,102 @@ namespace Cobranca.Operadora
 
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    result.Result = JsonConvert.DeserializeObject<Usuario>(responseContent);
+                    var customer = JsonConvert.DeserializeObject<Customer>(responseContent);
+                    result.Result.id = customer.id;
                     result.Success = true;
+                }
+                else if (restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    result.Message = "Não autorizado";
+                }
+                else
+                {
+                    result.Message = responseContent;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+            }
+            return result;
+        }
+
+        public GenericResult<List<BoletoPagadorRetorno>> CustomersByCpfCnpj(string cpfcnpj)
+        {
+            var result = new GenericResult<List<BoletoPagadorRetorno>>();
+            result.Result = new List<BoletoPagadorRetorno>();
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.credenciais.chave))
+                {
+                    result.Message = "chave não informado";
+                    return result;
+                }
+                                
+                var client = new RestClient(string.Format("{0}{1}?cpfCnpj={2}", URL_BASE, URL_CUSTOMERS, cpfcnpj));
+                var request = new RestRequest(Method.GET);
+
+                request.AddHeader("access_token", this.credenciais.chave);
+                request.AddHeader("Content-Type", "application/json");                
+
+                IRestResponse restResponse = client.Execute(request);
+                string responseContent = restResponse.Content;
+
+                if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var customers = JsonConvert.DeserializeObject<CustomerResult>(responseContent);
+                    foreach (var customer in customers.data)
+                    {
+                        result.Result.Add(new BoletoPagadorRetorno { id = customer.id, nome = customer.name });
+                    }
+                    result.Success = true;
+                }
+                else if (restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    result.Message = "Não autorizado";
+                }
+                else
+                {
+                    result.Message = responseContent;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+            }
+            return result;
+        }
+
+        public GenericResult<Customer> CustomerById(string id)
+        {
+            var result = new GenericResult<Customer>();
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.credenciais.chave))
+                {
+                    result.Message = "chave não informado";
+                    return result;
+                }
+
+                var client = new RestClient(string.Format("{0}{1}/{2}", URL_BASE, URL_CUSTOMERS, id));
+                var request = new RestRequest(Method.GET);
+
+                request.AddHeader("access_token", this.credenciais.chave);
+                request.AddHeader("Content-Type", "application/json");
+
+                IRestResponse restResponse = client.Execute(request);
+                string responseContent = restResponse.Content;
+
+                if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    result.Result = JsonConvert.DeserializeObject<Customer>(responseContent);                   
+                    result.Success = true;
+                }
+                else if (restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    result.Message = "Não autorizado";
                 }
                 else
                 {

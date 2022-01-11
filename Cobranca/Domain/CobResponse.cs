@@ -18,6 +18,7 @@ namespace Cobranca.Domain
         public string location { get; set; }
         public string status { get; set; }
         public List<pixResponse> pix { get; set; }
+        public string json { get; set; }
     }
 
     public class cobLocResponse

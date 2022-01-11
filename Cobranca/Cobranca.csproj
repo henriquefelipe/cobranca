@@ -48,7 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Asaas\Cobranca.cs" />
+    <Compile Include="Domain\Asaas\CobrancaResult.cs" />
+    <Compile Include="Domain\Asaas\Customer.cs" />
+    <Compile Include="Domain\Asaas\CustomerResult.cs" />
     <Compile Include="Domain\Boleto\BoletoPagador.cs" />
+    <Compile Include="Domain\Boleto\BoletoPagadorRetorno.cs" />
     <Compile Include="Domain\Recebimento.cs" />
     <Compile Include="Domain\Boleto\Boleto.cs" />
     <Compile Include="Domain\RecebimentoResult.cs" />

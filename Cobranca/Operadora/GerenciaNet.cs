@@ -133,7 +133,9 @@ namespace Cobranca.Operadora
                 else
                 {
                     result.Message = responseContent;
-                }                
+                }
+
+                result.Result.json = responseContent;
             }
             catch (Exception ex)
             {
@@ -165,6 +167,8 @@ namespace Cobranca.Operadora
                 {
                     result.Message = responseContent;
                 }
+
+                result.Result.json = responseContent;
             }
             catch (Exception ex)
             {
@@ -196,6 +200,8 @@ namespace Cobranca.Operadora
                 {
                     result.Message = responseContent;
                 }
+
+                result.Result.json = responseContent;
             }
             catch (Exception ex)
             {
@@ -235,6 +241,8 @@ namespace Cobranca.Operadora
                 {
                     result.Message = responseContent;
                 }
+
+                result.Result.json = responseContent;
             }
             catch (Exception ex)
             {

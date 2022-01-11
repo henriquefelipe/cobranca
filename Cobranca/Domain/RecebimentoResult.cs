@@ -11,5 +11,6 @@ namespace Cobranca.Domain
         public string Chave { get; set; }
         public string QrCode { get; set; }
         public string ImagemQrCode { get; set; }
+        public string JSON { get; set; }
     }
 }

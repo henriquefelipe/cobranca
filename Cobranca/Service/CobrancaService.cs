@@ -20,6 +20,7 @@ namespace Cobranca.Service
             this.credenciais = credenciais;
         }
 
+        #region Boleto
         public GenericResult<RecebimentoResult> CobrarBoleto(Boleto boleto)
         {
             var result = new GenericResult<RecebimentoResult>();
@@ -46,7 +47,11 @@ namespace Cobranca.Service
             if (this.credenciais.operadora == Enum.Operadora.Asaas)
             {
                 var asaas = new Asaas(credenciais);
-                asaas.Customers(pagador);
+                var resultado = asaas.Customers(pagador);
+                if (resultado.Success)
+                    result.Success = true;
+                else
+                    result.Message = resultado.Message;
             }
             else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
             {
@@ -55,6 +60,94 @@ namespace Cobranca.Service
 
             return result;
         }
+
+        public GenericResult<List<BoletoPagadorRetorno>> CobrarBoletoBuscarCliente(string cpfcnpj)
+        {
+            var result = new GenericResult<List<BoletoPagadorRetorno>>();
+            result.Result = new List<BoletoPagadorRetorno>();
+
+            if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                var asaas = new Asaas(credenciais);
+                var resultado = asaas.CustomersByCpfCnpj(cpfcnpj);
+                if (resultado.Success)
+                {
+                    result.Result = resultado.Result;
+                    result.Success = true;
+                }
+                else
+                {
+                    result.Message = resultado.Message;
+                }
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
+            {
+                result.Message = "Boleto não implementado para o gerencianet";
+            }
+
+            return result;
+        }
+
+        public GenericResult<List<BoletoPagadorRetorno>> CobrarBoletoListar(string parametros, bool trazarInformacoesCliente = false)
+        {
+            var result = new GenericResult<List<BoletoPagadorRetorno>>();
+            result.Result = new List<BoletoPagadorRetorno>();
+
+            if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                var asaas = new Asaas(credenciais);
+                var resultado = asaas.PaymentsFilters(parametros);
+                if (resultado.Success)
+                {                    
+                    foreach (var item in resultado.Result.data)
+                    {
+                        string clienteNome = "";
+                        string clienteDocumento = "";
+                        if (trazarInformacoesCliente)
+                        {
+                            var resultCustomer = asaas.CustomerById(item.customer);
+                            if (resultCustomer.Success)
+                            {
+                                clienteNome = resultCustomer.Result.name;
+                                clienteDocumento = resultCustomer.Result.cpfCnpj;
+                            }
+                        }
+
+                        result.Result.Add(new BoletoPagadorRetorno
+                        {
+                            clienteChave = item.customer,
+                            dataPagamento = Convert.ToDateTime(item.clientPaymentDate),
+                            dataVencimento = Convert.ToDateTime(item.dueDate),
+                            dataRecebimento = Convert.ToDateTime(item.confirmedDate),
+                            id = item.id,
+                            invoiceUrl = item.invoiceUrl,
+                            pdfUrl = item.bankSlipUrl,
+                            valor = item.value,
+                            valor_taxa = item.value - item.netValue, 
+                            valor_liquido = item.netValue,
+                            descricao = item.description,
+                            status = item.status,
+                            clienteNome = clienteNome,
+                            clienteDocumento = clienteDocumento
+                        });
+                    }
+                    result.Success = true;
+                }
+                else
+                {
+                    result.Message = resultado.Message;
+                }
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
+            {
+                result.Message = "Boleto não implementado para o gerencianet";
+            }
+
+            return result;
+        }
+
+
+        #endregion
 
         #region PIX
         public GenericResult<RecebimentoResult> CobrarPix(Recebimento cobranca)
@@ -111,6 +204,8 @@ namespace Cobranca.Service
                     return result;
                 }
 
+                result.Result.JSON = resultCob.Result.json;
+
                 var resultLoc = gerenciaNet.PixLoc(resultToken.Result.access_token, resultCob.Result);
                 if (!resultCob.Success)
                 {
@@ -118,12 +213,15 @@ namespace Cobranca.Service
                     return result;
                 }
 
+                result.Result.JSON += resultLoc.Result.json;
+
                 result.Result.Chave = cobranca.Id;
                 result.Result.ImagemQrCode = resultLoc.Result.imagemQrcode;
                 result.Result.QrCode = resultLoc.Result.qrcode;
                 result.Success = true;
             }
 
+            
             return result;
         }
 
@@ -149,6 +247,7 @@ namespace Cobranca.Service
                     return result;
                 }
 
+                result.Result.JSON = resultStatus.Result.json;
 
                 if (resultStatus.Result.status == GerenciaNetStatus.CONCLUIDA)
                 {
@@ -195,6 +294,8 @@ namespace Cobranca.Service
                     result.Message = "Devolução: " + resultToken.Message;
                     return result;
                 }
+
+                result.Result.JSON = resultDevolucao.Result.json;
 
                 if (resultDevolucao.Result.status == GerenciaNetStatus.EM_PROCESSAMENTO)
                 {

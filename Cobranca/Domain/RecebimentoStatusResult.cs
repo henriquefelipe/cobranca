@@ -9,5 +9,6 @@ namespace Cobranca.Domain
     public class RecebimentoStatusResult
     {
         public string Chave { get; set; }
+        public string JSON { get; set; }
     }
 }

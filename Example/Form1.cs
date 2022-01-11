@@ -99,21 +99,14 @@ namespace Example
             {
                 var boleto = new Boleto();
                 boleto.pagador = new BoletoPagador();
-                boleto.pagador.codigo = "00393389324";
+                boleto.pagador.codigo = "cus_000004770578";
                 boleto.vencimento = DateTime.Now.AddDays(2);
                 boleto.valor = Convert.ToDecimal(txtValor.Text);
-
-                //var cobrancaService = new CobrancaService(credenciais);
-                //var result = cobrancaService.CobrarBoleto(boleto);
-                //if (!result.Success)
-                //{
-                //    MessageBox.Show(result.Message);
-                //    return;
-                //}
-                var pagador = new BoletoPagador();
+                boleto.mensagens.Add("RECEBER ATÉ 10 DIAS ÚTEIS APÓS VENCIDO");
+                boleto.mensagens.Add("PROTESTAR NO DÉCIMO DIA APÓS VENCIDO");
 
                 var cobrancaService = new CobrancaService(credenciais);
-                var result = cobrancaService.CobrarBoletoCadastrarCliente(pagador);
+                var result = cobrancaService.CobrarBoleto(boleto);
                 if (!result.Success)
                 {
                     MessageBox.Show(result.Message);
@@ -175,5 +168,56 @@ namespace Example
             MessageBox.Show(result.Message);
         }
 
+        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            var credenciais = GetCredenciais();
+            var cobrancaService = new CobrancaService(credenciais);
+            var result = cobrancaService.CobrarBoletoBuscarCliente(txtCNPJCPF.Text);
+            if (!result.Success)
+            {
+                MessageBox.Show(result.Message);
+                return;
+            }                        
+        }
+
+        private void btnCadastrarCliente_Click(object sender, EventArgs e)
+        {
+            var credenciais = GetCredenciais();
+
+            var pagador = new BoletoPagador();
+            pagador.nome = "Henrique";
+            pagador.cnpjcpf = "51608691071";
+            pagador.cep = "60532670";
+            pagador.numero = "38";
+
+            var cobrancaService = new CobrancaService(credenciais);
+            var result = cobrancaService.CobrarBoletoCadastrarCliente(pagador);
+            if (!result.Success)
+            {
+                MessageBox.Show(result.Message);
+                return;
+            }
+        }
+
+        private void btnBuscarCobranca_Click(object sender, EventArgs e)
+        {
+            var credenciais = GetCredenciais();
+            var cobrancaService = new CobrancaService(credenciais);
+
+            //Recebimento
+            var parametros = string.Format("paymentDate%5Bge%5D={0}&paymentDate%5Ble%5D={1}", 
+                    DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+
+            //Vencimento
+            //var parametros = string.Format("dueDate%5Bge%5D={0}&dueDate%5Ble%5D={1}",
+            //        DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+
+            var result = cobrancaService.CobrarBoletoListar(parametros, true);
+            if (!result.Success)
+            {
+                MessageBox.Show(result.Message);
+                return;
+            }
+        }
     }
 }

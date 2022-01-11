@@ -13,6 +13,7 @@ namespace Cobranca.Domain
         public string valor { get; set; }
         public devHorarioResponse horario { get; set; }
         public string status { get; set; }
+        public string json { get; set; }
     }
 
     public class devHorarioResponse

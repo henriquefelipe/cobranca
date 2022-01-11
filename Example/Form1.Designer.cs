@@ -39,6 +39,8 @@ namespace Example
             this.btnDevolucaoCobranca = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageAsaas = new System.Windows.Forms.TabPage();
+            this.txtAsaasChave = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabPageInter = new System.Windows.Forms.TabPage();
             this.tabPageGerenciaNet = new System.Windows.Forms.TabPage();
             this.txtGerenciaNetChave = new System.Windows.Forms.TextBox();
@@ -51,8 +53,11 @@ namespace Example
             this.label3 = new System.Windows.Forms.Label();
             this.cboTipo = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtAsaasChave = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.btnBuscarCliente = new System.Windows.Forms.Button();
+            this.txtCNPJCPF = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnCadastrarCliente = new System.Windows.Forms.Button();
+            this.btnBuscarCobranca = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imgQrCode)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageAsaas.SuspendLayout();
@@ -73,7 +78,7 @@ namespace Example
             // btnStatusCobranca
             // 
             this.btnStatusCobranca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStatusCobranca.Location = new System.Drawing.Point(341, 325);
+            this.btnStatusCobranca.Location = new System.Drawing.Point(425, 325);
             this.btnStatusCobranca.Name = "btnStatusCobranca";
             this.btnStatusCobranca.Size = new System.Drawing.Size(154, 33);
             this.btnStatusCobranca.TabIndex = 1;
@@ -122,7 +127,7 @@ namespace Example
             // 
             // imgQrCode
             // 
-            this.imgQrCode.Location = new System.Drawing.Point(274, 364);
+            this.imgQrCode.Location = new System.Drawing.Point(513, 373);
             this.imgQrCode.Name = "imgQrCode";
             this.imgQrCode.Size = new System.Drawing.Size(314, 271);
             this.imgQrCode.TabIndex = 6;
@@ -160,6 +165,24 @@ namespace Example
             this.tabPageAsaas.TabIndex = 1;
             this.tabPageAsaas.Text = "Asaas";
             this.tabPageAsaas.UseVisualStyleBackColor = true;
+            // 
+            // txtAsaasChave
+            // 
+            this.txtAsaasChave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAsaasChave.Location = new System.Drawing.Point(146, 19);
+            this.txtAsaasChave.Name = "txtAsaasChave";
+            this.txtAsaasChave.Size = new System.Drawing.Size(639, 26);
+            this.txtAsaasChave.TabIndex = 17;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(10, 25);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(54, 20);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Chave";
             // 
             // tabPageInter
             // 
@@ -284,30 +307,68 @@ namespace Example
             this.label7.TabIndex = 9;
             this.label7.Text = "Tipo";
             // 
-            // txtAsaasChave
+            // btnBuscarCliente
             // 
-            this.txtAsaasChave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAsaasChave.Location = new System.Drawing.Point(146, 19);
-            this.txtAsaasChave.Name = "txtAsaasChave";
-            this.txtAsaasChave.Size = new System.Drawing.Size(639, 26);
-            this.txtAsaasChave.TabIndex = 17;
-            this.txtAsaasChave.Text = "bc49ff43e4786b4fb4f4c6fb5c896f166c176136ef58764c05a4c86aa2d7d69f";
+            this.btnBuscarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarCliente.Location = new System.Drawing.Point(40, 443);
+            this.btnBuscarCliente.Name = "btnBuscarCliente";
+            this.btnBuscarCliente.Size = new System.Drawing.Size(182, 33);
+            this.btnBuscarCliente.TabIndex = 11;
+            this.btnBuscarCliente.Text = "Buscar Cliente";
+            this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
             // 
-            // label8
+            // txtCNPJCPF
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(10, 25);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(54, 20);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "Chave";
+            this.txtCNPJCPF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCNPJCPF.Location = new System.Drawing.Point(172, 400);
+            this.txtCNPJCPF.Name = "txtCNPJCPF";
+            this.txtCNPJCPF.Size = new System.Drawing.Size(173, 26);
+            this.txtCNPJCPF.TabIndex = 13;
+            this.txtCNPJCPF.Text = "51608691071";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(58, 403);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(84, 20);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "CPF/CNPJ";
+            // 
+            // btnCadastrarCliente
+            // 
+            this.btnCadastrarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCadastrarCliente.Location = new System.Drawing.Point(237, 443);
+            this.btnCadastrarCliente.Name = "btnCadastrarCliente";
+            this.btnCadastrarCliente.Size = new System.Drawing.Size(182, 33);
+            this.btnCadastrarCliente.TabIndex = 14;
+            this.btnCadastrarCliente.Text = "Cadastrar Cliente";
+            this.btnCadastrarCliente.UseVisualStyleBackColor = true;
+            this.btnCadastrarCliente.Click += new System.EventHandler(this.btnCadastrarCliente_Click);
+            // 
+            // btnBuscarCobranca
+            // 
+            this.btnBuscarCobranca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarCobranca.Location = new System.Drawing.Point(228, 325);
+            this.btnBuscarCobranca.Name = "btnBuscarCobranca";
+            this.btnBuscarCobranca.Size = new System.Drawing.Size(182, 33);
+            this.btnBuscarCobranca.TabIndex = 15;
+            this.btnBuscarCobranca.Text = "Buscar Cobrança";
+            this.btnBuscarCobranca.UseVisualStyleBackColor = true;
+            this.btnBuscarCobranca.Click += new System.EventHandler(this.btnBuscarCobranca_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(843, 647);
+            this.Controls.Add(this.btnBuscarCobranca);
+            this.Controls.Add(this.btnCadastrarCliente);
+            this.Controls.Add(this.txtCNPJCPF);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.btnBuscarCliente);
             this.Controls.Add(this.cboTipo);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tabControl1);
@@ -360,6 +421,11 @@ namespace Example
         private System.Windows.Forms.TabPage tabPageInter;
         private System.Windows.Forms.TextBox txtAsaasChave;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnBuscarCliente;
+        private System.Windows.Forms.TextBox txtCNPJCPF;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnCadastrarCliente;
+        private System.Windows.Forms.Button btnBuscarCobranca;
     }
 }
 
