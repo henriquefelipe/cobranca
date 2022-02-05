@@ -15,8 +15,8 @@ namespace Cobranca.Operadora
 {
     public class Asaas
     {
-        private const string URL_BASE = "https://www.asaas.com/api/v3/"; // PRODUÇÃO
-        //private const string URL_BASE = "https://sandbox.asaas.com/api/v3/"; // HOMOLOGAÇÃO
+        private string URL_BASE = "https://www.asaas.com/api/v3/"; // PRODUÇÃO
+        private const string URL_BASE_HOM = "https://sandbox.asaas.com/api/v3/"; // HOMOLOGAÇÃO
         private const string URL_PAYMENTS = "payments";
         private const string URL_CUSTOMERS = "customers";
 
@@ -25,6 +25,8 @@ namespace Cobranca.Operadora
         internal Asaas(Credenciais credenciais)
         {
             this.credenciais = credenciais;
+            if (credenciais.isTest)
+                URL_BASE = URL_BASE_HOM;
         }
 
         public GenericResult<Usuario> Payments(Boleto boleto)
@@ -36,7 +38,17 @@ namespace Cobranca.Operadora
                 {
                     result.Message = "chave não informado";
                     return result;
-                }               
+                }            
+                
+                if(boleto.criarClienteSeNaoExistir)
+                {
+                    var resultCustomer = Customers(boleto.pagador);
+                    if(!resultCustomer.Success)
+                    {
+                        result.Message = "Erro ao criar cliente: " + resultCustomer.Message;
+                        return result;
+                    }
+                }
 
                 var dados = new
                 {

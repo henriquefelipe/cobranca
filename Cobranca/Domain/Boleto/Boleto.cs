@@ -21,5 +21,7 @@ namespace Cobranca.Domain.Boleto
         public BoletoPagador pagador { get; set; }
         public List<string> mensagens { get; set; }
         public bool postalService { get; set; }
+
+        public bool criarClienteSeNaoExistir { get; set; }
     }
 }
