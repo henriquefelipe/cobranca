@@ -42,11 +42,15 @@ namespace Cobranca.Operadora
                 
                 if(boleto.criarClienteSeNaoExistir)
                 {
-                    var resultCustomer = Customers(boleto.pagador);
-                    if(!resultCustomer.Success)
+                    var resultCustomerExist = CustomerById(boleto.pagador.codigo);
+                    if(!resultCustomerExist.Success)
                     {
-                        result.Message = "Erro ao criar cliente: " + resultCustomer.Message;
-                        return result;
+                        var resultCustomer = Customers(boleto.pagador);
+                        if (!resultCustomer.Success)
+                        {
+                            result.Message = "Erro ao criar cliente: " + resultCustomer.Message;
+                            return result;
+                        }
                     }
                 }
 
