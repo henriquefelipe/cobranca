@@ -119,6 +119,7 @@ namespace Cobranca.Service
                             dataPagamento = Convert.ToDateTime(item.clientPaymentDate),
                             dataVencimento = Convert.ToDateTime(item.dueDate),
                             dataRecebimento = Convert.ToDateTime(item.confirmedDate),
+                            dataEmissao = Convert.ToDateTime(item.dateCreated),
                             id = item.id,
                             invoiceUrl = item.invoiceUrl,
                             pdfUrl = item.bankSlipUrl,
