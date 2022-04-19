@@ -50,6 +50,7 @@ namespace Example
             credenciais.operadora = Cobranca.Enum.Operadora.Asaas;
             credenciais.tipo = (Cobranca.Enum.Tipo)cboTipo.SelectedItem;            
             credenciais.chave = txtAsaasChave.Text;
+            credenciais.isTest = true;            
 
             return credenciais;
         }
@@ -99,7 +100,9 @@ namespace Example
             {
                 var boleto = new Boleto();
                 boleto.pagador = new BoletoPagador();
-                boleto.pagador.codigo = "cus_000004770578";
+                //boleto.pagador.codigo = "cus_000004770578";
+                boleto.pagador.cnpjcpf = "24537333030";
+                boleto.pagador.nome = "Fulano da Silva";
                 boleto.vencimento = DateTime.Now.AddDays(2);
                 boleto.valor = Convert.ToDecimal(txtValor.Text);
                 boleto.mensagens.Add("RECEBER ATÉ 10 DIAS ÚTEIS APÓS VENCIDO");
@@ -173,10 +176,13 @@ namespace Example
             var credenciais = GetCredenciais();
             var cobrancaService = new CobrancaService(credenciais);
             var result = cobrancaService.CobrarBoletoBuscarCliente(txtCNPJCPF.Text);
-            if (!result.Success)
+            if (result.Success)
             {
-                MessageBox.Show(result.Message);
-                return;
+                MessageBox.Show("Cadastro existe");
+            }
+            else 
+            {
+                MessageBox.Show(result.Message);               
             }                        
         }
 
@@ -186,9 +192,11 @@ namespace Example
 
             var pagador = new BoletoPagador();
             pagador.nome = "Henrique";
-            pagador.cnpjcpf = "51608691071";
-            pagador.cep = "60532670";
+            pagador.cnpjcpf = "00393389324";
+            pagador.cep = "60532-670";
             pagador.numero = "38";
+            pagador.telefone = "08000 012455245";
+
 
             var cobrancaService = new CobrancaService(credenciais);
             var result = cobrancaService.CobrarBoletoCadastrarCliente(pagador);
@@ -221,3 +229,4 @@ namespace Example
         }
     }
 }
+

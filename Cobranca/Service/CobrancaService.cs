@@ -29,7 +29,23 @@ namespace Cobranca.Service
             if (this.credenciais.operadora == Enum.Operadora.Asaas)
             {
                 var asaas = new Asaas(credenciais);
-                asaas.Payments(boleto);
+                var asaasResult = asaas.Payments(boleto);
+                if(asaasResult.Success)
+                {
+                    result.Result = new RecebimentoResult
+                    {
+                        Chave = asaasResult.Result.id,
+                        UrlLink = asaasResult.Result.invoiceUrl,
+                        UrlBoleto = asaasResult.Result.bankSlipUrl,
+                        NossoNumero = asaasResult.Result.nossoNumero,
+                        Numero = asaasResult.Result.invoiceNumber
+                    };
+                    result.Success = true;
+                }
+                else
+                {
+                    result.Message = asaasResult.Message;
+                }
             }
             else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
             {
@@ -39,17 +55,20 @@ namespace Cobranca.Service
             return result;
         }
 
-        public GenericResult<RecebimentoResult> CobrarBoletoCadastrarCliente(BoletoPagador pagador)
+        public GenericResult<BoletoPagadorRetorno> CobrarBoletoCadastrarCliente(BoletoPagador pagador)
         {
-            var result = new GenericResult<RecebimentoResult>();
-            result.Result = new RecebimentoResult();
+            var result = new GenericResult<BoletoPagadorRetorno>();
+            result.Result = new BoletoPagadorRetorno();
 
             if (this.credenciais.operadora == Enum.Operadora.Asaas)
             {
                 var asaas = new Asaas(credenciais);
                 var resultado = asaas.Customers(pagador);
                 if (resultado.Success)
+                {
                     result.Success = true;
+                    result.Result.codigo = resultado.Result.id;
+                }
                 else
                     result.Message = resultado.Message;
             }
@@ -72,7 +91,14 @@ namespace Cobranca.Service
                 var resultado = asaas.CustomersByCpfCnpj(cpfcnpj);
                 if (resultado.Success)
                 {
-                    result.Result = resultado.Result;
+                    foreach (var item in resultado.Result)
+                    {
+                        var cliente = new BoletoPagadorRetorno
+                        { 
+                            codigo = item.id
+                        };
+                        result.Result.Add(cliente);
+                    }
                     result.Success = true;
                 }
                 else

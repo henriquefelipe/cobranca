@@ -22,6 +22,8 @@ namespace Cobranca.Domain.Boleto
         public List<string> mensagens { get; set; }
         public bool postalService { get; set; }
 
-        public bool criarClienteSeNaoExistir { get; set; }
+        public decimal descontoValor { get; set; }
+        public short descontoDias { get; set; }
+        public decimal multaValor { get; set; }
     }
 }

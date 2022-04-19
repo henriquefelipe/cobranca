@@ -10,6 +10,7 @@ namespace Cobranca.Domain.Asaas
     {
         public string id { get; set; }
         public string dateCreated { get; set; }
+        public string codigo { get; set; }
         public string name { get; set; }
         public string email { get; set; }
         public string phone { get; set; }

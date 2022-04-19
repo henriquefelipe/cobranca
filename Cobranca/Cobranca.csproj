@@ -52,6 +52,7 @@
     <Compile Include="Domain\Asaas\CobrancaResult.cs" />
     <Compile Include="Domain\Asaas\Customer.cs" />
     <Compile Include="Domain\Asaas\CustomerResult.cs" />
+    <Compile Include="Domain\Asaas\ErrorsResult.cs" />
     <Compile Include="Domain\Boleto\BoletoPagador.cs" />
     <Compile Include="Domain\Boleto\BoletoPagadorRetorno.cs" />
     <Compile Include="Domain\Recebimento.cs" />

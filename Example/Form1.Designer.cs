@@ -123,7 +123,7 @@ namespace Example
             this.txtValor.Name = "txtValor";
             this.txtValor.Size = new System.Drawing.Size(173, 26);
             this.txtValor.TabIndex = 5;
-            this.txtValor.Text = "0,01";
+            this.txtValor.Text = "5,00";
             // 
             // imgQrCode
             // 
@@ -173,6 +173,7 @@ namespace Example
             this.txtAsaasChave.Name = "txtAsaasChave";
             this.txtAsaasChave.Size = new System.Drawing.Size(639, 26);
             this.txtAsaasChave.TabIndex = 17;
+            this.txtAsaasChave.Text = "915753505ed74e245c825e55d5f29cd4cc86027fc8e2c8577aeebb40d988b443";
             // 
             // label8
             // 
