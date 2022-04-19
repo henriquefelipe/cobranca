@@ -18,7 +18,7 @@ namespace Cobranca.Domain.Asaas
         public decimal value { get; set; }
         public decimal netValue { get; set; }
         public decimal? originalValue { get; set; }
-        public decimal interestValue { get; set; }
+        public decimal? interestValue { get; set; }
         public string description { get; set; }
         public string billingType { get; set; }
         public string status { get; set; }
@@ -42,7 +42,7 @@ namespace Cobranca.Domain.Asaas
         public Cobranca_fine fine { get; set; }
         public Cobranca_interest interest { get; set; }
         public bool postalService { get; set; }
-
+        public string nossoNumero { get; set; }
     }
 
     public class Cobranca_discount
@@ -50,6 +50,7 @@ namespace Cobranca.Domain.Asaas
         public decimal value { get; set; }
         public string limitDate { get; set; }
         public int dueDateLimitDays { get; set; }
+
         public string type { get; set; }
     }
 

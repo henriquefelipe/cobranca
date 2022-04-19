@@ -9,6 +9,7 @@ namespace Cobranca.Domain.Boleto
     public class BoletoPagadorRetorno
     {
         public string id { get; set; }
+        public string codigo { get; set; }
         public string nome { get; set; }
         public decimal valor { get; set; }
         public decimal valor_taxa { get; set; }

@@ -8,6 +8,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,9 +30,9 @@ namespace Cobranca.Operadora
                 URL_BASE = URL_BASE_HOM;
         }
 
-        public GenericResult<Usuario> Payments(Boleto boleto)
+        public GenericResult<Domain.Asaas.Cobranca> Payments(Boleto boleto)
         {
-            var result = new GenericResult<Usuario>();
+            var result = new GenericResult<Domain.Asaas.Cobranca>();
             try
             {
                 if (string.IsNullOrEmpty(this.credenciais.chave))
@@ -40,19 +41,12 @@ namespace Cobranca.Operadora
                     return result;
                 }            
                 
-                if(boleto.criarClienteSeNaoExistir)
+                if(string.IsNullOrEmpty(boleto.pagador.codigo))
                 {
-                    var resultCustomerExist = CustomerById(boleto.pagador.codigo);
-                    if(!resultCustomerExist.Success)
-                    {
-                        var resultCustomer = Customers(boleto.pagador);
-                        if (!resultCustomer.Success)
-                        {
-                            result.Message = "Erro ao criar cliente: " + resultCustomer.Message;
-                            return result;
-                        }
-                    }
+                    result.Message = "Informe o código do pagador";
+                    return result;
                 }
+
 
                 var dados = new
                 {
@@ -63,11 +57,11 @@ namespace Cobranca.Operadora
                     description = boleto.descricao,
                     externalReference = boleto.externalReference,
                     discount = new {                        
-                        value = 0.00,
-                        dueDateLimitDays = 0
+                        value = boleto.descontoValor,
+                        dueDateLimitDays = boleto.descontoDias
                     },
                     fine = new {
-                        value = 0.00
+                        value = boleto.multaValor
                     },
                     interest = new {
                         value = 0.00
@@ -88,12 +82,30 @@ namespace Cobranca.Operadora
 
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    result.Result = JsonConvert.DeserializeObject<Usuario>(responseContent);
+                    result.Result = JsonConvert.DeserializeObject<Domain.Asaas.Cobranca>(responseContent);
                     result.Success = true;
+                }
+                else if (restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    result.Message = "Unauthorized: Token inválido";
                 }
                 else
                 {
-                    result.Message = responseContent;
+                    try
+                    {
+                        var errors = JsonConvert.DeserializeObject<ErrorsResult>(responseContent);
+                        StringBuilder message = new StringBuilder();
+                        foreach(var item in errors.errors)
+                        {
+                            message.AppendLine(item.description);
+                        }
+
+                        result.Message = message.ToString();
+                    }
+                    catch
+                    {
+                        result.Message = responseContent;
+                    }
                 }
             }
             catch (Exception ex)
@@ -113,7 +125,9 @@ namespace Cobranca.Operadora
                     result.Message = "chave não informado";
                     return result;
                 }
-                
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
                 var client = new RestClient(string.Format("{0}{1}?{2}", URL_BASE, URL_PAYMENTS, parametros));
                 var request = new RestRequest(Method.GET);
 
@@ -171,6 +185,8 @@ namespace Cobranca.Operadora
                     observations = pagador.observacao
                 };
 
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
                 var json = JsonConvert.SerializeObject(dados);
                 var client = new RestClient(URL_BASE + URL_CUSTOMERS);
                 var request = new RestRequest(Method.POST);
@@ -185,16 +201,23 @@ namespace Cobranca.Operadora
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var customer = JsonConvert.DeserializeObject<Customer>(responseContent);
-                    result.Result.id = customer.id;
+                    result.Result = new BoletoPagadorRetorno();
+                    result.Result.id = customer.id;                    
                     result.Success = true;
                 }
                 else if (restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
-                    result.Message = "Não autorizado";
+                    result.Message = "Não autorizado, token inválido";
                 }
                 else
                 {
-                    result.Message = responseContent;
+                    if (!string.IsNullOrEmpty(responseContent))
+                        result.Message = responseContent;
+                    else
+                    {
+                        if (restResponse.ErrorException != null)
+                            result.Message = restResponse.ErrorException.Message;
+                    }
                 }
             }
             catch (Exception ex)
@@ -204,10 +227,10 @@ namespace Cobranca.Operadora
             return result;
         }
 
-        public GenericResult<List<BoletoPagadorRetorno>> CustomersByCpfCnpj(string cpfcnpj)
+        public GenericResult<List<Customer>> CustomersByCpfCnpj(string cpfcnpj)
         {
-            var result = new GenericResult<List<BoletoPagadorRetorno>>();
-            result.Result = new List<BoletoPagadorRetorno>();
+            var result = new GenericResult<List<Customer>>();
+            result.Result = new List<Customer>();
 
             try
             {
@@ -216,7 +239,9 @@ namespace Cobranca.Operadora
                     result.Message = "chave não informado";
                     return result;
                 }
-                                
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
                 var client = new RestClient(string.Format("{0}{1}?cpfCnpj={2}", URL_BASE, URL_CUSTOMERS, cpfcnpj));
                 var request = new RestRequest(Method.GET);
 
@@ -231,7 +256,7 @@ namespace Cobranca.Operadora
                     var customers = JsonConvert.DeserializeObject<CustomerResult>(responseContent);
                     foreach (var customer in customers.data)
                     {
-                        result.Result.Add(new BoletoPagadorRetorno { id = customer.id, nome = customer.name });
+                        result.Result.Add(new Customer { id = customer.id, name = customer.name });
                     }
                     result.Success = true;
                 }
@@ -241,7 +266,13 @@ namespace Cobranca.Operadora
                 }
                 else
                 {
-                    result.Message = responseContent;
+                    if(!string.IsNullOrEmpty(responseContent))
+                        result.Message = responseContent;
+                    else
+                    {
+                        if (restResponse.ErrorException != null)
+                            result.Message = restResponse.ErrorException.Message;
+                    }
                 }
             }
             catch (Exception ex)
@@ -262,6 +293,8 @@ namespace Cobranca.Operadora
                     result.Message = "chave não informado";
                     return result;
                 }
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
                 var client = new RestClient(string.Format("{0}{1}/{2}", URL_BASE, URL_CUSTOMERS, id));
                 var request = new RestRequest(Method.GET);
