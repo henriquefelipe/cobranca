@@ -18,6 +18,7 @@ namespace Cobranca.Domain.Boleto
         public DateTime dataPagamento { get; set; }
         public DateTime dataRecebimento { get; set; }
         public DateTime dataVencimento { get; set; }
+        public DateTime dataEmissao { get; set; }
         public string clienteChave { get; set; }
         public string clienteNome { get; set; }
         public string clienteDocumento { get; set; }
