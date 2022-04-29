@@ -62,8 +62,23 @@ namespace Example
                 return GetCredenciaisGerenciaNet();
             else if (operadora == Cobranca.Enum.Operadora.Asaas)
                 return GetCredenciaisAsaas();
+            else if (operadora == Cobranca.Enum.Operadora.BancoInter)
+                return GetCredenciaisBancoInter();
 
-             return new Credenciais();
+            return new Credenciais();
+        }
+
+        public Credenciais GetCredenciaisBancoInter()
+        {
+            var credenciais = new Credenciais();
+            credenciais.operadora = Cobranca.Enum.Operadora.BancoInter;
+            credenciais.tipo = (Cobranca.Enum.Tipo)cboTipo.SelectedItem;
+            credenciais.client_id = txtInterClientId.Text;
+            credenciais.client_secret = txtInterClientSecret.Text;
+            credenciais.isTest = true;
+            credenciais.scope = txtInterScope.Text;
+
+            return credenciais;
         }
 
         private void btnGerarCobranca_Click(object sender, EventArgs e)
@@ -100,17 +115,24 @@ namespace Example
             {
                 var boleto = new Boleto();
                 boleto.pagador = new BoletoPagador();
-                //boleto.pagador.codigo = "cus_000004770578";
+                boleto.pagador.codigo = "cus_000004856726";
                 boleto.pagador.cnpjcpf = "24537333030";
                 boleto.pagador.nome = "Fulano da Silva";
                 boleto.vencimento = DateTime.Now.AddDays(2);
                 boleto.valor = Convert.ToDecimal(txtValor.Text);
+                boleto.multaValor = 2;
+                boleto.jurosValor = 2;
                 boleto.mensagens.Add("RECEBER ATÉ 10 DIAS ÚTEIS APÓS VENCIDO");
                 boleto.mensagens.Add("PROTESTAR NO DÉCIMO DIA APÓS VENCIDO");
 
                 var cobrancaService = new CobrancaService(credenciais);
                 var result = cobrancaService.CobrarBoleto(boleto);
-                if (!result.Success)
+                if (result.Success)
+                {
+                    MessageBox.Show("Criado com sucesso");
+                    return;
+                }
+                else
                 {
                     MessageBox.Show(result.Message);
                     return;
@@ -226,6 +248,13 @@ namespace Example
                 MessageBox.Show(result.Message);
                 return;
             }
+        }
+
+        private void btnInterGerarToken_Click(object sender, EventArgs e)
+        {
+            var credenciais = GetCredenciais();
+            var cobrancaService = new CobrancaService(credenciais);
+            cobrancaService.Autenticar();
         }
     }
 }

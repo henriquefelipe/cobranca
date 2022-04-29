@@ -42,6 +42,15 @@ namespace Example
             this.txtAsaasChave = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPageInter = new System.Windows.Forms.TabPage();
+            this.txtInterScope = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtInterToken = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.btnInterGerarToken = new System.Windows.Forms.Button();
+            this.txtInterClientSecret = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtInterClientId = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabPageGerenciaNet = new System.Windows.Forms.TabPage();
             this.txtGerenciaNetChave = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -61,6 +70,7 @@ namespace Example
             ((System.ComponentModel.ISupportInitialize)(this.imgQrCode)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageAsaas.SuspendLayout();
+            this.tabPageInter.SuspendLayout();
             this.tabPageGerenciaNet.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -173,7 +183,7 @@ namespace Example
             this.txtAsaasChave.Name = "txtAsaasChave";
             this.txtAsaasChave.Size = new System.Drawing.Size(639, 26);
             this.txtAsaasChave.TabIndex = 17;
-            this.txtAsaasChave.Text = "915753505ed74e245c825e55d5f29cd4cc86027fc8e2c8577aeebb40d988b443";
+            this.txtAsaasChave.Text = "b7f9db5e7f5278b9daa2d378874fed46efc095b620dea4316f2df087ac35b661";
             // 
             // label8
             // 
@@ -187,12 +197,105 @@ namespace Example
             // 
             // tabPageInter
             // 
+            this.tabPageInter.Controls.Add(this.txtInterScope);
+            this.tabPageInter.Controls.Add(this.label13);
+            this.tabPageInter.Controls.Add(this.txtInterToken);
+            this.tabPageInter.Controls.Add(this.label12);
+            this.tabPageInter.Controls.Add(this.btnInterGerarToken);
+            this.tabPageInter.Controls.Add(this.txtInterClientSecret);
+            this.tabPageInter.Controls.Add(this.label11);
+            this.tabPageInter.Controls.Add(this.txtInterClientId);
+            this.tabPageInter.Controls.Add(this.label10);
             this.tabPageInter.Location = new System.Drawing.Point(4, 22);
             this.tabPageInter.Name = "tabPageInter";
             this.tabPageInter.Size = new System.Drawing.Size(801, 163);
             this.tabPageInter.TabIndex = 2;
             this.tabPageInter.Text = "Banco Inter";
             this.tabPageInter.UseVisualStyleBackColor = true;
+            // 
+            // txtInterScope
+            // 
+            this.txtInterScope.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInterScope.Location = new System.Drawing.Point(146, 68);
+            this.txtInterScope.Name = "txtInterScope";
+            this.txtInterScope.Size = new System.Drawing.Size(642, 26);
+            this.txtInterScope.TabIndex = 25;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(10, 68);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(55, 20);
+            this.label13.TabIndex = 24;
+            this.label13.Text = "Scope";
+            // 
+            // txtInterToken
+            // 
+            this.txtInterToken.Enabled = false;
+            this.txtInterToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInterToken.Location = new System.Drawing.Point(146, 117);
+            this.txtInterToken.Name = "txtInterToken";
+            this.txtInterToken.Size = new System.Drawing.Size(435, 26);
+            this.txtInterToken.TabIndex = 23;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(10, 117);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(53, 20);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "Token";
+            // 
+            // btnInterGerarToken
+            // 
+            this.btnInterGerarToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInterGerarToken.Location = new System.Drawing.Point(606, 117);
+            this.btnInterGerarToken.Name = "btnInterGerarToken";
+            this.btnInterGerarToken.Size = new System.Drawing.Size(182, 33);
+            this.btnInterGerarToken.TabIndex = 16;
+            this.btnInterGerarToken.Text = "Gerar Token";
+            this.btnInterGerarToken.UseVisualStyleBackColor = true;
+            this.btnInterGerarToken.Click += new System.EventHandler(this.btnInterGerarToken_Click);
+            // 
+            // txtInterClientSecret
+            // 
+            this.txtInterClientSecret.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInterClientSecret.Location = new System.Drawing.Point(522, 22);
+            this.txtInterClientSecret.Name = "txtInterClientSecret";
+            this.txtInterClientSecret.Size = new System.Drawing.Size(266, 26);
+            this.txtInterClientSecret.TabIndex = 21;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(399, 28);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(100, 20);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "Client Secret";
+            // 
+            // txtInterClientId
+            // 
+            this.txtInterClientId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInterClientId.Location = new System.Drawing.Point(146, 22);
+            this.txtInterClientId.Name = "txtInterClientId";
+            this.txtInterClientId.Size = new System.Drawing.Size(247, 26);
+            this.txtInterClientId.TabIndex = 19;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(10, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(70, 20);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "Client ID";
             // 
             // tabPageGerenciaNet
             // 
@@ -389,6 +492,8 @@ namespace Example
             this.tabControl1.ResumeLayout(false);
             this.tabPageAsaas.ResumeLayout(false);
             this.tabPageAsaas.PerformLayout();
+            this.tabPageInter.ResumeLayout(false);
+            this.tabPageInter.PerformLayout();
             this.tabPageGerenciaNet.ResumeLayout(false);
             this.tabPageGerenciaNet.PerformLayout();
             this.ResumeLayout(false);
@@ -427,6 +532,15 @@ namespace Example
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnCadastrarCliente;
         private System.Windows.Forms.Button btnBuscarCobranca;
+        private System.Windows.Forms.TextBox txtInterClientSecret;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtInterClientId;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtInterToken;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button btnInterGerarToken;
+        private System.Windows.Forms.TextBox txtInterScope;
+        private System.Windows.Forms.Label label13;
     }
 }
 

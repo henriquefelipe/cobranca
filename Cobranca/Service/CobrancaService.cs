@@ -20,6 +20,19 @@ namespace Cobranca.Service
             this.credenciais = credenciais;
         }
 
+        public GenericResult<RecebimentoResult> Autenticar()
+        {
+            var result = new GenericResult<RecebimentoResult>();
+            if (this.credenciais.operadora == Enum.Operadora.BancoInter)
+            {
+                var inter = new Inter(credenciais);
+                inter.Token();
+            }
+
+            return result;
+        }
+
+
         #region Boleto
         public GenericResult<RecebimentoResult> CobrarBoleto(Boleto boleto)
         {
@@ -30,7 +43,7 @@ namespace Cobranca.Service
             {
                 var asaas = new Asaas(credenciais);
                 var asaasResult = asaas.Payments(boleto);
-                if(asaasResult.Success)
+                if (asaasResult.Success)
                 {
                     result.Result = new RecebimentoResult
                     {
@@ -94,7 +107,7 @@ namespace Cobranca.Service
                     foreach (var item in resultado.Result)
                     {
                         var cliente = new BoletoPagadorRetorno
-                        { 
+                        {
                             codigo = item.id
                         };
                         result.Result.Add(cliente);
@@ -124,7 +137,7 @@ namespace Cobranca.Service
                 var asaas = new Asaas(credenciais);
                 var resultado = asaas.PaymentsFilters(parametros);
                 if (resultado.Success)
-                {                    
+                {
                     foreach (var item in resultado.Result.data)
                     {
                         string clienteNome = "";
@@ -149,7 +162,7 @@ namespace Cobranca.Service
                             invoiceUrl = item.invoiceUrl,
                             pdfUrl = item.bankSlipUrl,
                             valor = item.value,
-                            valor_taxa = item.value - item.netValue, 
+                            valor_taxa = item.value - item.netValue,
                             valor_liquido = item.netValue,
                             descricao = item.description,
                             status = item.status,
@@ -247,7 +260,7 @@ namespace Cobranca.Service
                 result.Success = true;
             }
 
-            
+
             return result;
         }
 

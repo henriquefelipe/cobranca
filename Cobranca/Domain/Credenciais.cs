@@ -15,5 +15,6 @@ namespace Cobranca.Domain
         public Enum.Operadora operadora { get; set; }
         public Enum.Tipo tipo { get; set; }
         public bool isTest { get; set; }
+        public string scope { get; set; }
     }
 }

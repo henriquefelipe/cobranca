@@ -24,6 +24,9 @@ namespace Cobranca.Domain.Boleto
 
         public decimal descontoValor { get; set; }
         public short descontoDias { get; set; }
+        public byte descontoTipo { get; set; }
+
         public decimal multaValor { get; set; }
+        public decimal jurosValor { get; set; }
     }
 }

@@ -74,6 +74,7 @@
     <Compile Include="Domain\Usuario.cs" />
     <Compile Include="Enum\CobrancaStatus.cs" />
     <Compile Include="Enum\GerenciaNetStatus.cs" />
+    <Compile Include="Enum\TipoValor.cs" />
     <Compile Include="Operadora\Inter.cs" />
     <Compile Include="Operadora\Asaas.cs" />
     <Compile Include="Operadora\GerenciaNet.cs" />

@@ -47,6 +47,7 @@ namespace Cobranca.Operadora
                     return result;
                 }
 
+                var tipoValorDesconto = boleto.descontoTipo == (byte)Enum.TipoValor.Fixo ? TipoDesconto.FIXED : TipoDesconto.PERCENTAGE;
 
                 var dados = new
                 {
@@ -58,13 +59,14 @@ namespace Cobranca.Operadora
                     externalReference = boleto.externalReference,
                     discount = new {                        
                         value = boleto.descontoValor,
-                        dueDateLimitDays = boleto.descontoDias
+                        dueDateLimitDays = boleto.descontoDias,
+                        type = tipoValorDesconto
                     },
                     fine = new {
-                        value = boleto.multaValor
+                        value = boleto.multaValor  // multa -> aqui é percentual
                     },
                     interest = new {
-                        value = 0.00
+                        value = boleto.jurosValor  // juros -> aqui é percentual
                     },
                     postalService = boleto.postalService
                 };
