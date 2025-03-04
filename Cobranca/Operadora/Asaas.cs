@@ -23,7 +23,14 @@ namespace Cobranca.Operadora
 
         private Credenciais credenciais;
 
-        internal Asaas(Credenciais credenciais)
+        //internal Asaas(Credenciais credenciais)
+        //{
+        //    this.credenciais = credenciais;
+        //    if (credenciais.isTest)
+        //        URL_BASE = URL_BASE_HOM;
+        //}
+
+        public Asaas(Credenciais credenciais)
         {
             this.credenciais = credenciais;
             if (credenciais.isTest)
@@ -143,6 +150,10 @@ namespace Cobranca.Operadora
                 {
                     result.Result = JsonConvert.DeserializeObject<CobrancaResult>(responseContent);
                     result.Success = true;
+                }
+                else if (restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    result.Message = "Token inválido";
                 }
                 else
                 {
@@ -328,5 +339,50 @@ namespace Cobranca.Operadora
             return result;
         }
 
+        public GenericResult<CustomerResult> CustomerAll(int offset = 0, int limit = 100)
+        {
+            var result = new GenericResult<CustomerResult>();
+
+            try
+            {
+                if (string.IsNullOrEmpty(this.credenciais.chave))
+                {
+                    result.Message = "chave não informado";
+                    return result;
+                }
+
+                var parametros = $"offset={offset}&limit={limit}";
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                var client = new RestClient(string.Format("{0}{1}?{2}", URL_BASE, URL_CUSTOMERS, parametros));
+                var request = new RestRequest(Method.GET);
+
+                request.AddHeader("access_token", this.credenciais.chave);
+                request.AddHeader("Content-Type", "application/json");
+
+                IRestResponse restResponse = client.Execute(request);
+                string responseContent = restResponse.Content;
+
+                if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    result.Result = JsonConvert.DeserializeObject<CustomerResult>(responseContent);
+                    result.Success = true;
+                }
+                else if (restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    result.Message = "Não autorizado";
+                }
+                else
+                {
+                    result.Message = responseContent;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+            }
+            return result;
+        }
     }
 }

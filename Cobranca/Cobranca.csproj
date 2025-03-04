@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=106.6.10.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.6.10\lib\net452\RestSharp.dll</HintPath>
@@ -55,6 +55,15 @@
     <Compile Include="Domain\Asaas\ErrorsResult.cs" />
     <Compile Include="Domain\Boleto\BoletoPagador.cs" />
     <Compile Include="Domain\Boleto\BoletoPagadorRetorno.cs" />
+    <Compile Include="Domain\ConsultaPagamentoPix.cs" />
+    <Compile Include="Domain\ConsultaPagamentoPixResult.cs" />
+    <Compile Include="Domain\Inter\InterDestinatario.cs" />
+    <Compile Include="Domain\Inter\InterPixConsultaPagamentoRetorno.cs" />
+    <Compile Include="Domain\Inter\InterPixPagamento.cs" />
+    <Compile Include="Domain\Inter\InterPixPagamentoRetorno.cs" />
+    <Compile Include="Domain\Inter\InterRetornoErro.cs" />
+    <Compile Include="Domain\PagamentoPix.cs" />
+    <Compile Include="Domain\PagamentoPixResult.cs" />
     <Compile Include="Domain\Recebimento.cs" />
     <Compile Include="Domain\Boleto\Boleto.cs" />
     <Compile Include="Domain\RecebimentoResult.cs" />
@@ -67,6 +76,7 @@
     <Compile Include="Enum\Asaas\Status.cs" />
     <Compile Include="Enum\Asaas\BillingType.cs" />
     <Compile Include="Enum\Asaas\TipoDesconto.cs" />
+    <Compile Include="Enum\Inter\InterConsultaPagamentoStatus.cs" />
     <Compile Include="Enum\PessoaTipo.cs" />
     <Compile Include="Enum\Tipo.cs" />
     <Compile Include="Enum\Operadora.cs" />

@@ -13,6 +13,7 @@ namespace Cobranca.Domain.Boleto
         public string nome { get; set; }
         public decimal valor { get; set; }
         public decimal valor_taxa { get; set; }
+        public decimal valor_acrescimo { get; set; }
         public decimal valor_liquido { get; set; }
         public string status { get; set; }
         public DateTime dataPagamento { get; set; }

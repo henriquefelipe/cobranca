@@ -1,5 +1,6 @@
 ﻿using Cobranca.Domain;
 using Cobranca.Domain.Boleto;
+using Cobranca.Domain.Inter;
 using Cobranca.Enum;
 using Cobranca.Operadora;
 using Cobranca.Utils;
@@ -20,13 +21,13 @@ namespace Cobranca.Service
             this.credenciais = credenciais;
         }
 
-        public GenericResult<RecebimentoResult> Autenticar()
+        public GenericResult<Usuario> Autenticar()
         {
-            var result = new GenericResult<RecebimentoResult>();
+            var result = new GenericResult<Usuario>();
             if (this.credenciais.operadora == Enum.Operadora.BancoInter)
             {
                 var inter = new Inter(credenciais);
-                inter.Token();
+                return  inter.Token();                
             }
 
             return result;
@@ -152,6 +153,10 @@ namespace Cobranca.Service
                             }
                         }
 
+                        var valorOriginal = item.value;
+                        if (item.originalValue != null && item.originalValue > 0)
+                            valorOriginal = item.originalValue.Value;
+
                         result.Result.Add(new BoletoPagadorRetorno
                         {
                             clienteChave = item.customer,
@@ -162,8 +167,9 @@ namespace Cobranca.Service
                             id = item.id,
                             invoiceUrl = item.invoiceUrl,
                             pdfUrl = item.bankSlipUrl,
-                            valor = item.value,
+                            valor = valorOriginal,
                             valor_taxa = item.value - item.netValue,
+                            valor_acrescimo = item.interestValue ?? 0,
                             valor_liquido = item.netValue,
                             descricao = item.description,
                             status = item.status,
@@ -347,6 +353,146 @@ namespace Cobranca.Service
                     result.Message = "Devolução: " + resultDevolucao.Result.status;
                     return result;
                 }
+            }
+
+            return result;
+        }
+
+        public GenericResult<PagamentoPixResult> PagamentoPix(PagamentoPix pagamentoPix)
+        {
+            var result = new GenericResult<PagamentoPixResult>();
+            result.Result = new PagamentoPixResult();
+
+            if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                result.Message = "PIX não implementado para o asaas";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.BancoInter)
+            {
+                var identificador = pagamentoPix.Identificador;
+                if (string.IsNullOrEmpty(identificador))
+                {
+                    identificador = Guid.NewGuid().ToString();
+                }
+
+                var service = new Inter(this.credenciais);
+                if (string.IsNullOrEmpty(credenciais.token))
+                {
+                    var resultToken = service.Token();
+                    if (!resultToken.Success)
+                    {
+                        result.Message = "Token: " + resultToken.Message;
+                        return result;
+                    }
+                }
+
+                if (pagamentoPix.Valor == 0)
+                {
+                    result.Message = "Valor não pode ser igual a zero";
+                    return result;
+                }
+
+                var pagamento = new InterPixPagamento()
+                {
+                    destinatario = new InterDestinatario
+                    {
+                        tipo = "CHAVE",
+                        chave = pagamentoPix.Chave
+                    },
+                    valor = pagamentoPix.Valor,
+                };
+                
+                var resultPagamento = service.PagamentoPix(identificador, pagamento);
+                if (!resultPagamento.Success)
+                {
+                    result.Message = "Pix: " + resultPagamento.Message;
+                    return result;
+                }
+
+                result.Result.Identificador = resultPagamento.Result.codigoSolicitacao;
+                result.Result.Status = resultPagamento.Result.tipoRetorno;
+                result.JSON = resultPagamento.JSON;
+                result.Success = true;
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                result.Message = "PIX não implementado para o gerencia net";
+            }
+
+            return result;
+        }
+
+        public GenericResult<ConsultaPagamentoPixResult> ConsultaPagamentoPix(ConsultaPagamentoPix consultaPagamentoPix)
+        {
+            var result = new GenericResult<ConsultaPagamentoPixResult>();
+            result.Result = new ConsultaPagamentoPixResult();
+
+            if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                result.Message = "PIX não implementado para o asaas";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.BancoInter)
+            {                
+                var service = new Inter(this.credenciais);
+                if (string.IsNullOrEmpty(credenciais.token))
+                {
+                    var resultToken = service.Token();
+                    if (!resultToken.Success)
+                    {
+                        result.Message = "Token: " + resultToken.Message;
+                        return result;
+                    }
+                }
+                
+                var resultConsultaPagamento = service.ConsultaPagamentoPix(consultaPagamentoPix.Identificador);
+                if (!resultConsultaPagamento.Success)
+                {
+                    result.Message = "Pix: " + resultConsultaPagamento.Message;
+                    return result;
+                }
+
+                //result.Result.Status = resultConsultaPagamento.Result.;
+                //result.Result.Status = resultConsultaPagamento.Result.tipoRetorno;
+                result.JSON = resultConsultaPagamento.JSON;
+                result.Success = true;
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                result.Message = "PIX não implementado para o gerencia net";
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region Clientes
+
+        public GenericResult<List<BoletoPagadorRetorno>> BuscarClienteTodos(int offset = 0, int limit = 100)
+        {
+            var result = new GenericResult<List<BoletoPagadorRetorno>>();
+            result.Result = new List<BoletoPagadorRetorno>();
+
+            if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                var asaas = new Asaas(credenciais);
+                var resultado = asaas.CustomerAll(offset, limit);
+                if (resultado.Success)
+                {
+                    
+                    result.Success = true;
+                }
+                else
+                {
+                    result.Message = resultado.Message;
+                }
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
+            {
+                result.Message = "Metodo não implementado para o gerencianet";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.BancoInter)
+            {
+                result.Message = "Metodo não implementado para o banco inter";
             }
 
             return result;

@@ -1,12 +1,13 @@
 ﻿using Cobranca.Domain;
-using Cobranca.Domain.Boleto;
-using Cobranca.Enum.Asaas;
+using Cobranca.Domain.Inter;
 using Cobranca.Utils;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,15 +15,34 @@ namespace Cobranca.Operadora
 {
     public class Inter
     {
-        private const string URL_BASE = "https://apis.bancointer.com.br/openbanking/v1/certificado/";        
-        private const string URL_BOLETO = "boletos";
-        private const string URL_TOKEN = "https://cdpj.partners.bancointer.com.br/oauth/v2/token";
-
+        private string URL_BASE = "https://cdpj.partners.bancointer.com.br";
+        private const string URL_BASE_TESTE = "https://cdpj-sandbox.partners.uatinter.co";
+        private const string SCOPE = "extrato.read boleto-cobranca.read boleto-cobranca.write pagamento-pix.write pagamento-pix.read";
         private Credenciais credenciais;
 
         internal Inter(Credenciais credenciais)
         {
             this.credenciais = credenciais;
+            //if(credenciais.isTest)
+            //{
+            //    URL_BASE = URL_BASE_TESTE;
+            //}
+        }
+
+        private string GetScope()
+        {
+            if(!string.IsNullOrEmpty(this.credenciais.scope))
+            {
+                return SCOPE;
+            }
+            return this.credenciais.scope;
+        }
+
+        private X509Certificate2Collection GetCertificado()
+        {
+            X509Certificate2Collection certificates = new X509Certificate2Collection();
+            certificates.Import(credenciais.caminhoCertificado, credenciais.senhaCertificado, X509KeyStorageFlags.PersistKeySet);
+            return certificates;        
         }
 
         public GenericResult<Usuario> Token()
@@ -42,24 +62,22 @@ namespace Cobranca.Operadora
                     return result;
                 }
 
-                var dados = new
+                if (string.IsNullOrEmpty(this.credenciais.caminhoCertificado))
                 {
-                    grant_type = "client_credentials",
-                    client_id = this.credenciais.client_id,
-                    client_secret = this.credenciais.client_secret,
-                    scope = this.credenciais.scope
-                };
-
-                var json = JsonConvert.SerializeObject(dados);
-                var client = new RestClient(URL_TOKEN);
-                var request = new RestRequest(Method.POST);
-
-                request.AddHeader("Accept", "application/json");
-                request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-                request.AddParameter("application/x-www-form-urlencoded", json, ParameterType.RequestBody);                
+                    result.Message = "certificado não informado";
+                    return result;
+                }
+                                
+                var client = new RestClient($"{URL_BASE}/oauth/v2/token");
+                client.ClientCertificates = GetCertificado();
+                client.Proxy = new WebProxy();
+                var request = new RestRequest(Method.POST);                
+                request.AddParameter("client_id", this.credenciais.client_id);
+                request.AddParameter("client_secret", this.credenciais.client_secret);
+                request.AddParameter("grant_type", "client_credentials");
+                request.AddParameter("scope", GetScope());
                 IRestResponse restResponse = client.Execute(request);
                 string responseContent = restResponse.Content;
-
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     result.Result = JsonConvert.DeserializeObject<Usuario>(responseContent);
@@ -76,59 +94,36 @@ namespace Cobranca.Operadora
             }
             return result;
         }
+        
 
-        public GenericResult<Usuario> Emissao(Boleto boleto)
+        public GenericResult<InterPixPagamentoRetorno> PagamentoPix(string identificador, InterPixPagamento pagamento)
         {
-            var result = new GenericResult<Usuario>();
+            var result = new GenericResult<InterPixPagamentoRetorno>();
             try
             {
-                if (string.IsNullOrEmpty(this.credenciais.chave))
-                {
-                    result.Message = "chave não informado";
-                    return result;
-                }               
+                var json = JsonConvert.SerializeObject(pagamento);
 
-                var dados = new
-                {
-                    customer =  boleto.pagador.codigo,
-                    billingType = BillingType.BOLETO,
-                    dueDate = boleto.vencimento.ToString("yyyy-MM-dd"),
-                    value = 100.00,
-                    description = boleto.descricao,
-                    externalReference = boleto.externalReference,
-                    discount = new {                        
-                        value = 10.00,
-                        dueDateLimitDays = 0
-                    },
-                    fine = new {
-                        value = 1.00
-                    },
-                    interest = new {
-                        value = 2.00
-                    },
-                    postalService = boleto.postalService
-                };
-
-                var json = JsonConvert.SerializeObject(dados);
-                var client = new RestClient(URL_BASE + URL_BOLETO);
+                var client = new RestClient($"{URL_BASE}/banking/v2/pix");
+                client.ClientCertificates = GetCertificado();
+                client.Proxy = new WebProxy();
                 var request = new RestRequest(Method.POST);
-                
-                request.AddHeader("access_token", this.credenciais.chave);
+                request.AddHeader("x-id-idempotente", identificador);
                 request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + credenciais.token);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
-
                 IRestResponse restResponse = client.Execute(request);
                 string responseContent = restResponse.Content;
-
                 if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    result.Result = JsonConvert.DeserializeObject<Usuario>(responseContent);
+                    result.Result = JsonConvert.DeserializeObject<InterPixPagamentoRetorno>(responseContent);
                     result.Success = true;
                 }
                 else
                 {
                     result.Message = responseContent;
                 }
+
+                result.JSON = responseContent;
             }
             catch (Exception ex)
             {
@@ -137,6 +132,45 @@ namespace Cobranca.Operadora
             return result;
         }
 
-      
+        public GenericResult<InterPixConsultaPagamentoRetorno> ConsultaPagamentoPix(string identificador)
+        {
+            var result = new GenericResult<InterPixConsultaPagamentoRetorno>();
+            try
+            {
+                var client = new RestClient($"{URL_BASE}/banking/v2/pix/{identificador}");
+                client.ClientCertificates = GetCertificado();
+                client.Proxy = new WebProxy();
+                var request = new RestRequest(Method.GET);                              
+                request.AddHeader("Authorization", "Bearer " + credenciais.token);                
+                IRestResponse restResponse = client.Execute(request);
+                string responseContent = restResponse.Content;
+                if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    result.Result = JsonConvert.DeserializeObject<InterPixConsultaPagamentoRetorno>(responseContent);
+                    result.Success = true;
+                }
+                //else if (restResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+                //{
+                //    {
+                //        "title":"Pix não encontrado.",
+                //        "detail":"Pix não encontrado para a conta-corrente informada.",
+                //        "timestamp":"2025-03-04T12:35:09.326739409-03:00"
+                //    }
+                //}
+                else
+                {                    
+                    result.Message = responseContent;
+                }
+
+                result.JSON = responseContent;
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+            }
+            return result;
+        }
+
+        
     }
 }

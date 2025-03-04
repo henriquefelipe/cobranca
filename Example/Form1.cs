@@ -1,6 +1,9 @@
 ﻿using Cobranca.Domain;
+using Cobranca.Domain.Asaas;
 using Cobranca.Domain.Boleto;
+using Cobranca.Operadora;
 using Cobranca.Service;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +32,20 @@ namespace Example
         {
             cboOperadora.DataSource = Enum.GetValues(typeof(Cobranca.Enum.Operadora));
             cboTipo.DataSource = Enum.GetValues(typeof(Cobranca.Enum.Tipo));
+
+            var caminhoArquivo = "C:\\Cobranca.json";
+            if (File.Exists(caminhoArquivo))
+            {
+                var conteudo = File.ReadAllText(caminhoArquivo);
+                var objeto = JsonConvert.DeserializeObject<CredenciaisExample> (conteudo);
+                if(objeto != null)
+                {
+                    txtInterCertificado.Text = objeto.InterCaminhoCertificado;
+                    txtInterClientId.Text = objeto.InterClientId;
+                    txtInterClientSecret.Text = objeto.InterClienteSecret;
+                    txtInterKey.Text = objeto.InterSenhaCertificado;
+                }
+            }
         }
 
         public Credenciais GetCredenciaisGerenciaNet()
@@ -50,7 +67,7 @@ namespace Example
             credenciais.operadora = Cobranca.Enum.Operadora.Asaas;
             credenciais.tipo = (Cobranca.Enum.Tipo)cboTipo.SelectedItem;            
             credenciais.chave = txtAsaasChave.Text;
-            credenciais.isTest = true;            
+            credenciais.isTest = false;            
 
             return credenciais;
         }
@@ -77,6 +94,9 @@ namespace Example
             credenciais.client_secret = txtInterClientSecret.Text;
             credenciais.isTest = true;
             credenciais.scope = txtInterScope.Text;
+            credenciais.caminhoCertificado = txtInterCertificado.Text;
+            credenciais.senhaCertificado = txtInterKey.Text;
+            credenciais.token = txtInterToken.Text;
 
             return credenciais;
         }
@@ -234,9 +254,11 @@ namespace Example
             var credenciais = GetCredenciais();
             var cobrancaService = new CobrancaService(credenciais);
 
+            var data = Convert.ToDateTime("22/12/2023");
+
             //Recebimento
-            var parametros = string.Format("paymentDate%5Bge%5D={0}&paymentDate%5Ble%5D={1}", 
-                    DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+            var parametros = string.Format("paymentDate%5Bge%5D={0}&paymentDate%5Ble%5D={1}",
+                    data.ToString("yyyy-MM-dd"), data.ToString("yyyy-MM-dd"));
 
             //Vencimento
             //var parametros = string.Format("dueDate%5Bge%5D={0}&dueDate%5Ble%5D={1}",
@@ -254,7 +276,101 @@ namespace Example
         {
             var credenciais = GetCredenciais();
             var cobrancaService = new CobrancaService(credenciais);
-            cobrancaService.Autenticar();
+            var result = cobrancaService.Autenticar();
+            if(result.Success)
+            {
+                txtInterToken.Text = result.Result.access_token;
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
+        }
+
+        private void btnCLientes2023_Click(object sender, EventArgs e)
+        {
+            var credenciais = GetCredenciais();
+            var cobrancaService = new CobrancaService(credenciais);
+
+            var dataInicio = Convert.ToDateTime("01/01/2023");
+            var dataFim = Convert.ToDateTime("31/12/2023");
+            var offset = 0;
+            var limit = 100;
+
+            var asaas = new Asaas(credenciais);
+            var resultado = asaas.CustomerAll(offset, limit);
+
+            var listaClientes = new List<Customer>();
+
+            var qtdeClientes = 0;
+            foreach(var item in resultado.Result.data)
+            {
+                if (item.dateCreated.CompareTo(dataInicio) >= 0 && item.dateCreated.CompareTo(dataFim) <= 0)
+                {
+                    listaClientes.Add(item);
+                }
+            }
+
+            offset++;
+            var qtdePaginas = resultado.Result.totalCount / 100;
+            if ((qtdePaginas * 100) < resultado.Result.totalCount)
+                qtdePaginas++;
+            for (var i = offset; i < qtdePaginas; i++)
+            {
+                var resultadoLaco = asaas.CustomerAll(offset, limit);                
+                foreach (var item in resultadoLaco.Result.data)
+                {
+                    if (item.dateCreated.CompareTo(dataInicio) >= 0 && item.dateCreated.CompareTo(dataFim) <= 0)
+                    {
+                        listaClientes.Add(item);
+                    }
+                }
+
+                offset++;
+            }
+
+            //txtClientes2023.Text = qtdeClientes.ToString();
+
+            StringBuilder sb = new StringBuilder();
+
+            var clientes = listaClientes.OrderBy(o => o.name).GroupBy(g => g.name);
+            foreach (var item in clientes)
+            {
+                sb.AppendLine($"{item.Key}");
+            }
+
+            var arquivo = "Clientes0" + DateTime.Now.ToString("ssmmddMMyyyy") + ".txt";
+            File.WriteAllText(@"C:\\IzzyWay\RH\" + arquivo, sb.ToString());
+        }
+
+        private void btnPagarPix_Click(object sender, EventArgs e)
+        {
+            txtIdentificador.Text = Guid.NewGuid().ToString();
+
+            var credenciais = GetCredenciais();                     
+            var cobrancaService = new CobrancaService(credenciais);
+
+            var pagamentoPix = new PagamentoPix();
+            pagamentoPix.Valor = Convert.ToDecimal(txtValor.Text);
+            pagamentoPix.Chave = txtPixChave.Text;
+            pagamentoPix.Identificador = txtIdentificador.Text;
+
+            var result = cobrancaService.PagamentoPix(pagamentoPix);
+            if(result.Success)
+            {
+                txtIdentificador.Text = result.Result.Identificador;
+            }
+        }
+
+        private void btnConsultaPix_Click(object sender, EventArgs e)
+        {
+            var credenciais = GetCredenciais();
+            var cobrancaService = new CobrancaService(credenciais);
+
+            var consultaPagamentoPix = new ConsultaPagamentoPix();
+            consultaPagamentoPix.Identificador = txtIdentificador.Text;
+
+            cobrancaService.ConsultaPagamentoPix(consultaPagamentoPix);
         }
     }
 }

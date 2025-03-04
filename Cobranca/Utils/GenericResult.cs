@@ -15,5 +15,6 @@ namespace Cobranca.Utils
     public class GenericResult<TResult> : GenericSimpleResult
     {
         public TResult Result { get; set; }
+        public string JSON { get; set; }
     }
 }
