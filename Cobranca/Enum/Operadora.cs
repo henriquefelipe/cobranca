@@ -10,6 +10,7 @@ namespace Cobranca.Enum
     {
         GerenciaNet = 0,
         BancoInter = 1,
-        Asaas = 2
+        Asaas = 2,
+        Zoop = 3,
     }
 }

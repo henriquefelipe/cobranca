@@ -13,5 +13,8 @@ namespace Example
         public string InterCaminhoCertificado { get; set; }
         public string InterSenhaCertificado { get; set; }
 
+
+        public string ZoopToken { get; set; }
+        public string ZoopMarketplaceId { get; set; }       
     }
 }

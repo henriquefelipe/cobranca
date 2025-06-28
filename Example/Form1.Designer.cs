@@ -64,6 +64,7 @@ namespace Example
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.tabPageZoop = new System.Windows.Forms.TabPage();
             this.cboTipo = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnBuscarCliente = new System.Windows.Forms.Button();
@@ -80,11 +81,16 @@ namespace Example
             this.txtPixChave = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.btnConsultaPix = new System.Windows.Forms.Button();
+            this.txtZoopMarketplaceId = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtZoopKey = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imgQrCode)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageAsaas.SuspendLayout();
             this.tabPageInter.SuspendLayout();
             this.tabPageGerenciaNet.SuspendLayout();
+            this.tabPageZoop.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnGerarCobranca
@@ -115,7 +121,7 @@ namespace Example
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(48, 279);
+            this.label1.Location = new System.Drawing.Point(77, 278);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 25);
@@ -180,6 +186,7 @@ namespace Example
             this.tabControl1.Controls.Add(this.tabPageAsaas);
             this.tabControl1.Controls.Add(this.tabPageInter);
             this.tabControl1.Controls.Add(this.tabPageGerenciaNet);
+            this.tabControl1.Controls.Add(this.tabPageZoop);
             this.tabControl1.Location = new System.Drawing.Point(29, 15);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
@@ -261,7 +268,7 @@ namespace Example
             this.label15.Location = new System.Drawing.Point(532, 102);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(88, 31);
+            this.label15.Size = new System.Drawing.Size(70, 25);
             this.label15.TabIndex = 28;
             this.label15.Text = "Senha";
             // 
@@ -487,6 +494,19 @@ namespace Example
             this.label3.TabIndex = 9;
             this.label3.Text = "Certificado";
             // 
+            // tabPageZoop
+            // 
+            this.tabPageZoop.Controls.Add(this.txtZoopKey);
+            this.tabPageZoop.Controls.Add(this.label20);
+            this.tabPageZoop.Controls.Add(this.txtZoopMarketplaceId);
+            this.tabPageZoop.Controls.Add(this.label19);
+            this.tabPageZoop.Location = new System.Drawing.Point(4, 25);
+            this.tabPageZoop.Name = "tabPageZoop";
+            this.tabPageZoop.Size = new System.Drawing.Size(1071, 204);
+            this.tabPageZoop.TabIndex = 3;
+            this.tabPageZoop.Text = "Zoop";
+            this.tabPageZoop.UseVisualStyleBackColor = true;
+            // 
             // cboTipo
             // 
             this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -648,7 +668,7 @@ namespace Example
             this.label18.Location = new System.Drawing.Point(450, 548);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(134, 31);
+            this.label18.Size = new System.Drawing.Size(107, 25);
             this.label18.TabIndex = 22;
             this.label18.Text = "Chave PIX";
             // 
@@ -663,6 +683,46 @@ namespace Example
             this.btnConsultaPix.Text = "Consulta PIX";
             this.btnConsultaPix.UseVisualStyleBackColor = true;
             this.btnConsultaPix.Click += new System.EventHandler(this.btnConsultaPix_Click);
+            // 
+            // txtZoopMarketplaceId
+            // 
+            this.txtZoopMarketplaceId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtZoopMarketplaceId.Location = new System.Drawing.Point(199, 87);
+            this.txtZoopMarketplaceId.Margin = new System.Windows.Forms.Padding(4);
+            this.txtZoopMarketplaceId.Name = "txtZoopMarketplaceId";
+            this.txtZoopMarketplaceId.Size = new System.Drawing.Size(855, 30);
+            this.txtZoopMarketplaceId.TabIndex = 27;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(17, 87);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(140, 25);
+            this.label19.TabIndex = 26;
+            this.label19.Text = "Marketplace Id";
+            // 
+            // txtZoopKey
+            // 
+            this.txtZoopKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtZoopKey.Location = new System.Drawing.Point(506, 33);
+            this.txtZoopKey.Margin = new System.Windows.Forms.Padding(4);
+            this.txtZoopKey.Name = "txtZoopKey";
+            this.txtZoopKey.Size = new System.Drawing.Size(352, 30);
+            this.txtZoopKey.TabIndex = 29;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(892, 38);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(85, 31);
+            this.label20.TabIndex = 28;
+            this.label20.Text = "Token";
             // 
             // Form1
             // 
@@ -707,6 +767,8 @@ namespace Example
             this.tabPageInter.PerformLayout();
             this.tabPageGerenciaNet.ResumeLayout(false);
             this.tabPageGerenciaNet.PerformLayout();
+            this.tabPageZoop.ResumeLayout(false);
+            this.tabPageZoop.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -765,6 +827,11 @@ namespace Example
         private System.Windows.Forms.TextBox txtPixChave;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button btnConsultaPix;
+        private System.Windows.Forms.TabPage tabPageZoop;
+        private System.Windows.Forms.TextBox txtZoopKey;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txtZoopMarketplaceId;
+        private System.Windows.Forms.Label label19;
     }
 }
 

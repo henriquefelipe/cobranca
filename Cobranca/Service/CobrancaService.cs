@@ -27,7 +27,7 @@ namespace Cobranca.Service
             if (this.credenciais.operadora == Enum.Operadora.BancoInter)
             {
                 var inter = new Inter(credenciais);
-                return  inter.Token();                
+                return inter.Token();
             }
 
             return result;
@@ -90,6 +90,18 @@ namespace Cobranca.Service
             {
                 result.Message = "Boleto não implementado para o gerencianet";
             }
+            else if (this.credenciais.operadora == Enum.Operadora.Zoop)
+            {
+                var zoop = new Zoop(credenciais);
+                var resultado = zoop.Comprador(pagador);
+                if (resultado.Success)
+                {
+                    result.Success = true;
+                    result.Result.codigo = resultado.Result.id;
+                }
+                else
+                    result.Message = resultado.Message;
+            }
 
             return result;
         }
@@ -123,6 +135,24 @@ namespace Cobranca.Service
             else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
             {
                 result.Message = "Boleto não implementado para o gerencianet";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Zoop)
+            {
+                var zoop = new Zoop(credenciais);
+                var resultado = zoop.CompradorPorCpfCnpj(cpfcnpj);
+                if (resultado.Success)
+                {
+                    var cliente = new BoletoPagadorRetorno
+                    {
+                        codigo = resultado.Result.id
+                    };
+                    result.Result.Add(cliente);
+                    result.Success = true;
+                }
+                else
+                {
+                    result.Message = resultado.Message;
+                }
             }
 
             return result;
@@ -401,7 +431,7 @@ namespace Cobranca.Service
                     },
                     valor = pagamentoPix.Valor,
                 };
-                
+
                 var resultPagamento = service.PagamentoPix(identificador, pagamento);
                 if (!resultPagamento.Success)
                 {
@@ -432,7 +462,7 @@ namespace Cobranca.Service
                 result.Message = "PIX não implementado para o asaas";
             }
             else if (this.credenciais.operadora == Enum.Operadora.BancoInter)
-            {                
+            {
                 var service = new Inter(this.credenciais);
                 if (string.IsNullOrEmpty(credenciais.token))
                 {
@@ -443,7 +473,7 @@ namespace Cobranca.Service
                         return result;
                     }
                 }
-                
+
                 var resultConsultaPagamento = service.ConsultaPagamentoPix(consultaPagamentoPix.Identificador);
                 if (!resultConsultaPagamento.Success)
                 {
@@ -478,7 +508,7 @@ namespace Cobranca.Service
                 var resultado = asaas.CustomerAll(offset, limit);
                 if (resultado.Success)
                 {
-                    
+
                     result.Success = true;
                 }
                 else

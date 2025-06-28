@@ -44,6 +44,9 @@ namespace Example
                     txtInterClientId.Text = objeto.InterClientId;
                     txtInterClientSecret.Text = objeto.InterClienteSecret;
                     txtInterKey.Text = objeto.InterSenhaCertificado;
+
+                    txtZoopKey.Text = objeto.ZoopToken;
+                    txtZoopMarketplaceId.Text = objeto.ZoopMarketplaceId;                    
                 }
             }
         }
@@ -72,19 +75,6 @@ namespace Example
             return credenciais;
         }
 
-        public Credenciais GetCredenciais()
-        {
-            var operadora = (Cobranca.Enum.Operadora)cboOperadora.SelectedItem;            
-            if (operadora == Cobranca.Enum.Operadora.GerenciaNet)
-                return GetCredenciaisGerenciaNet();
-            else if (operadora == Cobranca.Enum.Operadora.Asaas)
-                return GetCredenciaisAsaas();
-            else if (operadora == Cobranca.Enum.Operadora.BancoInter)
-                return GetCredenciaisBancoInter();
-
-            return new Credenciais();
-        }
-
         public Credenciais GetCredenciaisBancoInter()
         {
             var credenciais = new Credenciais();
@@ -100,6 +90,34 @@ namespace Example
 
             return credenciais;
         }
+
+        public Credenciais GetCredenciaisZoop()
+        {
+            var credenciais = new Credenciais();
+            credenciais.operadora = Cobranca.Enum.Operadora.Zoop;
+            credenciais.tipo = (Cobranca.Enum.Tipo)cboTipo.SelectedItem;
+            credenciais.client_id = txtZoopMarketplaceId.Text;      
+            credenciais.token = txtZoopKey.Text;           
+            
+            return credenciais;
+        }
+
+        public Credenciais GetCredenciais()
+        {
+            var operadora = (Cobranca.Enum.Operadora)cboOperadora.SelectedItem;            
+            if (operadora == Cobranca.Enum.Operadora.GerenciaNet)
+                return GetCredenciaisGerenciaNet();
+            else if (operadora == Cobranca.Enum.Operadora.Asaas)
+                return GetCredenciaisAsaas();
+            else if (operadora == Cobranca.Enum.Operadora.BancoInter)
+                return GetCredenciaisBancoInter();
+            else if (operadora == Cobranca.Enum.Operadora.Zoop)
+                return GetCredenciaisZoop();
+
+            return new Credenciais();
+        }
+
+        
 
         private void btnGerarCobranca_Click(object sender, EventArgs e)
         {
@@ -237,7 +255,11 @@ namespace Example
             pagador.cnpjcpf = "00393389324";
             pagador.cep = "60532-670";
             pagador.numero = "38";
-            pagador.telefone = "08000 012455245";
+            pagador.telefone = "85987704779";
+            pagador.endereco = "Rua 1 de Maio";
+            pagador.bairro = "Parangaba";
+            pagador.cidade = "Fortaleza";
+            pagador.uf = "CE";
 
 
             var cobrancaService = new CobrancaService(credenciais);
