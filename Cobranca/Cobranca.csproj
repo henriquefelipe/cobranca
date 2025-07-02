@@ -75,6 +75,9 @@
     <Compile Include="Domain\Credenciais.cs" />
     <Compile Include="Domain\Zoop\Comprador.cs" />
     <Compile Include="Domain\Zoop\CompradorRetorno.cs" />
+    <Compile Include="Domain\Zoop\Error.cs" />
+    <Compile Include="Domain\Zoop\Transacao.cs" />
+    <Compile Include="Domain\Zoop\TransacaoRetorno.cs" />
     <Compile Include="Enum\Asaas\Status.cs" />
     <Compile Include="Enum\Asaas\BillingType.cs" />
     <Compile Include="Enum\Asaas\TipoDesconto.cs" />
@@ -87,6 +90,8 @@
     <Compile Include="Enum\CobrancaStatus.cs" />
     <Compile Include="Enum\GerenciaNetStatus.cs" />
     <Compile Include="Enum\TipoValor.cs" />
+    <Compile Include="Enum\Zoop\PaymenMethodMode.cs" />
+    <Compile Include="Enum\Zoop\TransacaoStatus.cs" />
     <Compile Include="Operadora\Inter.cs" />
     <Compile Include="Operadora\Asaas.cs" />
     <Compile Include="Operadora\GerenciaNet.cs" />

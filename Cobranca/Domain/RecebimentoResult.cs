@@ -16,5 +16,9 @@ namespace Cobranca.Domain
         public string UrlBoleto { get; set; }
         public string NossoNumero { get; set; }
         public string Numero { get; set; }
+        public string CodigoBarras { get; set; }
+        public string LinhaDigitavel { get; set; }
+        public string Base64 { get; set; }
+        public string CopiaECola { get; set; }
     }
 }

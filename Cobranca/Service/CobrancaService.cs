@@ -65,6 +65,51 @@ namespace Cobranca.Service
             {
                 result.Message = "Boleto não implementado para o gerencianet";
             }
+            else if (this.credenciais.operadora == Enum.Operadora.Zoop)
+            {
+                var zoop = new Zoop(credenciais);
+
+                if (string.IsNullOrEmpty(boleto.pagador.codigo))
+                {
+                    var resultadoComprador = zoop.CompradorPorCpfCnpj(boleto.pagador.cnpjcpf);
+                    if (resultadoComprador.Success)
+                    {
+                        boleto.pagador.codigo = resultadoComprador.Result.id;                       
+                    }
+                    else
+                    {
+                        var resultadoCompradorCriando = zoop.Comprador(boleto.pagador);
+                        if (resultadoCompradorCriando.Success)
+                        {
+                            boleto.pagador.codigo = resultadoCompradorCriando.Result.id;
+                        }
+                        else
+                        {
+                            result.Message = resultadoComprador.Message;
+                            return result;
+                        }
+                    }
+                }
+
+                var resultBoleto = zoop.Boleto(boleto);
+                if (resultBoleto.Success)
+                {                    
+                    result.Result = new RecebimentoResult
+                    {
+                        Chave = resultBoleto.Result.id,
+                        CopiaECola = resultBoleto.Result.payment_method.emv,                        
+                        NossoNumero = resultBoleto.Result.payment_method.digitable_line,
+                        LinhaDigitavel = resultBoleto.Result.payment_method.digitable_line,
+                        Base64 = resultBoleto.Result.payment_method.base64,
+                        CodigoBarras = resultBoleto.Result.payment_method.barcode,                        
+                    };
+                }
+                else
+                {
+                    result.Message = resultBoleto.Message;
+                    return result;
+                }
+            }
 
             return result;
         }
@@ -523,6 +568,10 @@ namespace Cobranca.Service
             else if (this.credenciais.operadora == Enum.Operadora.BancoInter)
             {
                 result.Message = "Metodo não implementado para o banco inter";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Zoop)
+            {
+                result.Message = "Metodo não implementado para o zoop";
             }
 
             return result;

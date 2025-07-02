@@ -46,7 +46,8 @@ namespace Example
                     txtInterKey.Text = objeto.InterSenhaCertificado;
 
                     txtZoopKey.Text = objeto.ZoopToken;
-                    txtZoopMarketplaceId.Text = objeto.ZoopMarketplaceId;                    
+                    txtZoopMarketplaceId.Text = objeto.ZoopMarketplaceId;   
+                    txtZoopSellerId.Text = objeto.ZoopSellerId;
                 }
             }
         }
@@ -97,8 +98,9 @@ namespace Example
             credenciais.operadora = Cobranca.Enum.Operadora.Zoop;
             credenciais.tipo = (Cobranca.Enum.Tipo)cboTipo.SelectedItem;
             credenciais.client_id = txtZoopMarketplaceId.Text;      
-            credenciais.token = txtZoopKey.Text;           
-            
+            credenciais.token = txtZoopKey.Text;     
+            credenciais.seller_id = txtZoopSellerId.Text; // Identificador do seller responsável pela venda, usado para transações Zoop.
+
             return credenciais;
         }
 
@@ -153,15 +155,21 @@ namespace Example
             {
                 var boleto = new Boleto();
                 boleto.pagador = new BoletoPagador();
-                boleto.pagador.codigo = "cus_000004856726";
-                boleto.pagador.cnpjcpf = "24537333030";
+                boleto.pagador.codigo = "";
+                boleto.pagador.cnpjcpf = txtCNPJCPF.Text;
                 boleto.pagador.nome = "Fulano da Silva";
                 boleto.vencimento = DateTime.Now.AddDays(2);
                 boleto.valor = Convert.ToDecimal(txtValor.Text);
                 boleto.multaValor = 2;
                 boleto.jurosValor = 2;
                 boleto.mensagens.Add("RECEBER ATÉ 10 DIAS ÚTEIS APÓS VENCIDO");
-                boleto.mensagens.Add("PROTESTAR NO DÉCIMO DIA APÓS VENCIDO");
+                //boleto.mensagens.Add("PROTESTAR NO DÉCIMO DIA APÓS VENCIDO");
+                boleto.externalReference = Guid.NewGuid().ToString();
+
+                if((Cobranca.Enum.Operadora)cboOperadora.SelectedItem == Cobranca.Enum.Operadora.Zoop)
+                {
+                    boleto.limitePagamento = DateTime.Now.AddMonths(1);
+                }
 
                 var cobrancaService = new CobrancaService(credenciais);
                 var result = cobrancaService.CobrarBoleto(boleto);

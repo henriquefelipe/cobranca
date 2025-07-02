@@ -19,5 +19,6 @@ namespace Cobranca.Domain
         public Enum.Tipo tipo { get; set; }
         public bool isTest { get; set; }
         public string scope { get; set; }        
+        public string seller_id { get; set; } // Identificador do seller responsável pela venda, usado para transações Zoop.
     }
 }

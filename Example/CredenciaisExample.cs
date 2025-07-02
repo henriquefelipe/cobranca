@@ -15,6 +15,7 @@ namespace Example
 
 
         public string ZoopToken { get; set; }
-        public string ZoopMarketplaceId { get; set; }       
+        public string ZoopMarketplaceId { get; set; }
+        public string ZoopSellerId { get; set; }
     }
 }
