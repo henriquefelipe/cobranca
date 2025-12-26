@@ -87,7 +87,6 @@ namespace Cobranca.Operadora
             return result;
         }
 
-
         public GenericResult<ItauPixRetornoPagamento> PagamentoPix(ItauPixPagamento pagamento)
         {
             var result = new GenericResult<ItauPixRetornoPagamento>();
