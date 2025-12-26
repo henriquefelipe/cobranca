@@ -1,6 +1,7 @@
 ﻿using Cobranca.Domain;
 using Cobranca.Domain.Boleto;
 using Cobranca.Domain.Inter;
+using Cobranca.Domain.Itau;
 using Cobranca.Enum;
 using Cobranca.Operadora;
 using Cobranca.Utils;
@@ -27,6 +28,11 @@ namespace Cobranca.Service
             if (this.credenciais.operadora == Enum.Operadora.BancoInter)
             {
                 var inter = new Inter(credenciais);
+                return inter.Token();
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Itau)
+            {
+                var inter = new Itau(credenciais);
                 return inter.Token();
             }
 
@@ -103,6 +109,8 @@ namespace Cobranca.Service
                         Base64 = resultBoleto.Result.payment_method.base64,
                         CodigoBarras = resultBoleto.Result.payment_method.barcode,                        
                     };
+
+                    result.Success = true;
                 }
                 else
                 {
@@ -489,10 +497,60 @@ namespace Cobranca.Service
                 result.JSON = resultPagamento.JSON;
                 result.Success = true;
             }
-            else if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            else if (this.credenciais.operadora == Enum.Operadora.Itau)
             {
-                result.Message = "PIX não implementado para o gerencia net";
+                var identificador = pagamentoPix.Identificador;
+                if (string.IsNullOrEmpty(identificador))
+                {
+                    identificador = Guid.NewGuid().ToString();
+                }
+
+                var service = new Itau(this.credenciais);
+                if (string.IsNullOrEmpty(credenciais.token))
+                {
+                    var resultToken = service.Token();
+                    if (!resultToken.Success)
+                    {
+                        result.Message = "Token: " + resultToken.Message;
+                        return result;
+                    }
+                }
+
+                if (pagamentoPix.Valor == 0)
+                {
+                    result.Message = "Valor não pode ser igual a zero";
+                    return result;
+                }
+
+                var pagador = new ItauPagador();
+                pagador.agencia = credenciais.agencia;
+                pagador.conta = credenciais.conta;
+                pagador.documento = credenciais.cnpjcpf;
+
+                var pagamento = new ItauPixPagamento()
+                {
+                    chave = pagamentoPix.Chave,
+                    valor_pagamento = pagamentoPix.Valor,
+                    data_pagamento = pagamentoPix.DataPagamento == null ? DateTime.Now.ToString("yyyy-MM-dd") : pagamentoPix.DataPagamento.Value.ToString("yyyy-MM-dd"),
+                    identificacao_comprovante = identificador,
+                    informacoes_entre_usuarios = "Pagamento via API",
+                    referencia_empresa = "REF-" + pagamentoPix.IdentificadorPequeno,
+                    pagador = pagador
+                };
+
+                var resultPagamento = service.PagamentoPix(pagamento);
+                if (!resultPagamento.Success)
+                {
+                    result.Message = "Pix: " + resultPagamento.Message;
+                    return result;
+                }
+
+                result.Result.Identificador = resultPagamento.Result.cod_pagamento;
+                result.Result.Status = resultPagamento.Result.status_pagamento;
+                result.JSON = resultPagamento.JSON;
+                result.Success = true;
             }
+           
 
             return result;
         }
@@ -531,9 +589,102 @@ namespace Cobranca.Service
                 result.JSON = resultConsultaPagamento.JSON;
                 result.Success = true;
             }
-            else if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            else if (this.credenciais.operadora == Enum.Operadora.Itau)
             {
-                result.Message = "PIX não implementado para o gerencia net";
+                var service = new Itau(this.credenciais);
+                if (string.IsNullOrEmpty(credenciais.token))
+                {
+                    var resultToken = service.Token();
+                    if (!resultToken.Success)
+                    {
+                        result.Message = "Token: " + resultToken.Message;
+                        return result;
+                    }
+                }
+
+                var resultConsultaPagamento = service.ConsultaPagamentoPix(consultaPagamentoPix.Identificador);
+                if (!resultConsultaPagamento.Success)
+                {
+                    result.Message = "Pix: " + resultConsultaPagamento.Message;
+                    return result;
+                }
+                
+                result.Result.Status = resultConsultaPagamento.Result.data.dados_pagamento.status;
+                result.JSON = resultConsultaPagamento.JSON;
+                result.Success = true;
+            }
+
+            return result;
+        }
+
+        public GenericResult<List<ConsultaPagamentoPixResult>> ConsultaPagamentosPix(ConsultaPagamentoPix consultaPagamentoPix)
+        {
+            var result = new GenericResult<List<ConsultaPagamentoPixResult>>();
+            result.Result = new List<ConsultaPagamentoPixResult>();
+
+            if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                result.Message = "PIX não implementado para o asaas";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.BancoInter)
+            {
+                //var service = new Inter(this.credenciais);
+                //if (string.IsNullOrEmpty(credenciais.token))
+                //{
+                //    var resultToken = service.Token();
+                //    if (!resultToken.Success)
+                //    {
+                //        result.Message = "Token: " + resultToken.Message;
+                //        return result;
+                //    }
+                //}
+
+                //var resultConsultaPagamento = service.ConsultaPagamentoPix(consultaPagamentoPix.Identificador);
+                //if (!resultConsultaPagamento.Success)
+                //{
+                //    result.Message = "Pix: " + resultConsultaPagamento.Message;
+                //    return result;
+                //}
+
+                //result.Result.Status = resultConsultaPagamento.Result.;
+                //result.Result.Status = resultConsultaPagamento.Result.tipoRetorno;
+                //result.JSON = resultConsultaPagamento.JSON;
+                result.Success = true;
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Itau)
+            {
+                var service = new Itau(this.credenciais);
+                if (string.IsNullOrEmpty(credenciais.token))
+                {
+                    var resultToken = service.Token();
+                    if (!resultToken.Success)
+                    {
+                        result.Message = "Token: " + resultToken.Message;
+                        return result;
+                    }
+                }
+
+                if (consultaPagamentoPix.Inicio == null || consultaPagamentoPix.Fim == null)
+                {
+                    consultaPagamentoPix.Inicio = DateTime.Now;
+                    consultaPagamentoPix.Fim = DateTime.Now;
+                }
+
+                var resultConsultaPagamento = service.ConsultaPagamentosPix(consultaPagamentoPix.Inicio.Value, consultaPagamentoPix.Fim.Value);
+                if (!resultConsultaPagamento.Success)
+                {
+                    result.Message = "Pix: " + resultConsultaPagamento.Message;
+                    return result;
+                }
+
+                result.Result = resultConsultaPagamento.Result.data.itens.Select(p => new ConsultaPagamentoPixResult
+                {
+                    IdentificadorPagamento = p.id_pagamento,
+                    Status = p.status
+                }).ToList();
+
+                result.JSON = resultConsultaPagamento.JSON;
+                result.Success = true;
             }
 
             return result;

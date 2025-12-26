@@ -9,7 +9,10 @@ namespace Cobranca.Domain
     public class PagamentoPix
     {
         public string Identificador { get; set; }
+        public string IdentificadorPequeno { get; set; }
         public decimal Valor {  get; set; }
         public string Chave { get; set; }
+
+        public DateTime? DataPagamento { get; set; }
     }
 }

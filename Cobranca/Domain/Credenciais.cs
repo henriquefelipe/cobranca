@@ -20,5 +20,8 @@ namespace Cobranca.Domain
         public bool isTest { get; set; }
         public string scope { get; set; }        
         public string seller_id { get; set; } // Identificador do seller responsável pela venda, usado para transações Zoop.
+        public string agencia { get; set; }
+        public string conta { get; set; }
+        public string cnpjcpf { get; set; }
     }
 }

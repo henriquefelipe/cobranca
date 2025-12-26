@@ -20,6 +20,7 @@ namespace Cobranca.Operadora
     public class Zoop
     {
         private const string URL_BASE = "https://api.zoop.ws/v1/marketplaces/";
+        //https://docs.zoop.co/reference/get_v1-marketplaces-marketplace-id-sellers-seller-id-transactions-1
 
         private Credenciais credenciais;
 
@@ -195,6 +196,9 @@ namespace Cobranca.Operadora
                 {
                     dados.payment_method.payment_limit_at = boleto.limitePagamento.Value.ToString("yyyy-MM-dd");
                 }
+
+                if(boleto.mensagens == null)
+                    boleto.mensagens = new List<string>();
 
                 dados.payment_method.billing_message_list = new List<TransacaoPaymentMethodBillitMessageList>();
                 dados.payment_method.billing_message_list.AddRange(boleto.mensagens.Select(s => new TransacaoPaymentMethodBillitMessageList { message = s}));

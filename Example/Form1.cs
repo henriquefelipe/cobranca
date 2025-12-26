@@ -45,6 +45,14 @@ namespace Example
                     txtInterClientSecret.Text = objeto.InterClienteSecret;
                     txtInterKey.Text = objeto.InterSenhaCertificado;
 
+                    txtItauCertificadoCaminho.Text = objeto.ItauCaminhoCertificado;
+                    txtItauClientID.Text = objeto.ItauClientId;
+                    txtItauClientSecret.Text = objeto.ItauClienteSecret;
+                    txtItauCertificadoSenha.Text = objeto.ItauSenhaCertificado;
+                    txtItauAgencia.Text = objeto.ItauAgencia;
+                    txtItauConta.Text = objeto.ItauConta;
+                    txtItauCNPJ.Text = objeto.ItauDocumento;
+
                     txtZoopKey.Text = objeto.ZoopToken;
                     txtZoopMarketplaceId.Text = objeto.ZoopMarketplaceId;   
                     txtZoopSellerId.Text = objeto.ZoopSellerId;
@@ -92,6 +100,23 @@ namespace Example
             return credenciais;
         }
 
+        public Credenciais GetCredenciaisItau()
+        {
+            var credenciais = new Credenciais();
+            credenciais.operadora = Cobranca.Enum.Operadora.Itau;
+            credenciais.tipo = (Cobranca.Enum.Tipo)cboTipo.SelectedItem;
+            credenciais.client_id = txtItauClientID.Text;
+            credenciais.client_secret = txtItauClientSecret.Text;                        
+            credenciais.caminhoCertificado = txtItauCertificadoCaminho.Text;
+            credenciais.senhaCertificado = txtItauCertificadoSenha.Text;
+            credenciais.token = txtItauToken.Text;
+            credenciais.agencia = txtItauAgencia.Text;
+            credenciais.conta = txtItauConta.Text;
+            credenciais.cnpjcpf = txtItauCNPJ.Text;
+
+            return credenciais;
+        }
+
         public Credenciais GetCredenciaisZoop()
         {
             var credenciais = new Credenciais();
@@ -113,6 +138,8 @@ namespace Example
                 return GetCredenciaisAsaas();
             else if (operadora == Cobranca.Enum.Operadora.BancoInter)
                 return GetCredenciaisBancoInter();
+            else if (operadora == Cobranca.Enum.Operadora.Itau)
+                return GetCredenciaisItau();
             else if (operadora == Cobranca.Enum.Operadora.Zoop)
                 return GetCredenciaisZoop();
 
@@ -259,8 +286,8 @@ namespace Example
             var credenciais = GetCredenciais();
 
             var pagador = new BoletoPagador();
-            pagador.nome = "Henrique";
-            pagador.cnpjcpf = "00393389324";
+            pagador.nome = txtNomeCliente.Text;
+            pagador.cnpjcpf = txtCNPJCPF.Text;
             pagador.cep = "60532-670";
             pagador.numero = "38";
             pagador.telefone = "85987704779";
@@ -384,11 +411,16 @@ namespace Example
             pagamentoPix.Valor = Convert.ToDecimal(txtValor.Text);
             pagamentoPix.Chave = txtPixChave.Text;
             pagamentoPix.Identificador = txtIdentificador.Text;
+            pagamentoPix.IdentificadorPequeno = "001";
 
             var result = cobrancaService.PagamentoPix(pagamentoPix);
             if(result.Success)
             {
                 txtIdentificador.Text = result.Result.Identificador;
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
             }
         }
 
@@ -400,7 +432,49 @@ namespace Example
             var consultaPagamentoPix = new ConsultaPagamentoPix();
             consultaPagamentoPix.Identificador = txtIdentificador.Text;
 
-            cobrancaService.ConsultaPagamentoPix(consultaPagamentoPix);
+            var result = cobrancaService.ConsultaPagamentoPix(consultaPagamentoPix);
+            if(result.Success)
+            {
+
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
+        }
+
+        private void btnItauGerarToken_Click(object sender, EventArgs e)
+        {
+            var credenciais = GetCredenciais();
+            var cobrancaService = new CobrancaService(credenciais);
+            var result = cobrancaService.Autenticar();
+            if (result.Success)
+            {
+                txtItauToken.Text = result.Result.access_token;
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
+        }
+
+        private void btnConsultarVariosPix_Click(object sender, EventArgs e)
+        {
+            var credenciais = GetCredenciais();
+            var cobrancaService = new CobrancaService(credenciais);
+
+            var consultaPagamentoPix = new ConsultaPagamentoPix();
+            //consultaPagamentoPix.Identificador = txtIdentificador.Text;
+
+            var result = cobrancaService.ConsultaPagamentosPix(consultaPagamentoPix);
+            if (result.Success)
+            {
+
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
         }
     }
 }

@@ -13,6 +13,13 @@ namespace Example
         public string InterCaminhoCertificado { get; set; }
         public string InterSenhaCertificado { get; set; }
 
+        public string ItauClientId { get; set; }
+        public string ItauClienteSecret { get; set; }
+        public string ItauCaminhoCertificado { get; set; }
+        public string ItauSenhaCertificado { get; set; }
+        public string ItauAgencia { get; set; }
+        public string ItauConta { get; set; }
+        public string ItauDocumento { get; set; }
 
         public string ZoopToken { get; set; }
         public string ZoopMarketplaceId { get; set; }

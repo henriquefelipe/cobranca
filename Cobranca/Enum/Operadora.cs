@@ -12,5 +12,6 @@ namespace Cobranca.Enum
         BancoInter = 1,
         Asaas = 2,
         Zoop = 3,
+        Itau = 4
     }
 }

@@ -9,5 +9,8 @@ namespace Cobranca.Domain
     public class ConsultaPagamentoPix
     {
         public string Identificador { get; set; }
+
+        public DateTime? Inicio { get; set; }
+        public DateTime? Fim { get; set; }
     }
 }

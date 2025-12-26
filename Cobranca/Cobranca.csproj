@@ -62,6 +62,11 @@
     <Compile Include="Domain\Inter\InterPixPagamento.cs" />
     <Compile Include="Domain\Inter\InterPixPagamentoRetorno.cs" />
     <Compile Include="Domain\Inter\InterRetornoErro.cs" />
+    <Compile Include="Domain\Itau\ItauPagador.cs" />
+    <Compile Include="Domain\Itau\ItauPixPagamento.cs" />
+    <Compile Include="Domain\Itau\ItauPixRetornoConsultaPagamento.cs" />
+    <Compile Include="Domain\Itau\ItauPixRetornoConsultaPagamentos.cs" />
+    <Compile Include="Domain\Itau\ItauPixRetornoPagamento.cs" />
     <Compile Include="Domain\PagamentoPix.cs" />
     <Compile Include="Domain\PagamentoPixResult.cs" />
     <Compile Include="Domain\Recebimento.cs" />
@@ -73,6 +78,8 @@
     <Compile Include="Domain\DevResponse.cs" />
     <Compile Include="Domain\Pagamento.cs" />
     <Compile Include="Domain\Credenciais.cs" />
+    <Compile Include="Domain\Rede\ReceivablesResponseViewModel.cs" />
+    <Compile Include="Domain\Rede\TransactionsResponseViewModel.cs" />
     <Compile Include="Domain\Zoop\Comprador.cs" />
     <Compile Include="Domain\Zoop\CompradorRetorno.cs" />
     <Compile Include="Domain\Zoop\Error.cs" />
@@ -82,6 +89,7 @@
     <Compile Include="Enum\Asaas\BillingType.cs" />
     <Compile Include="Enum\Asaas\TipoDesconto.cs" />
     <Compile Include="Enum\Inter\InterConsultaPagamentoStatus.cs" />
+    <Compile Include="Enum\Itau\PagamentoStatus.cs" />
     <Compile Include="Enum\PessoaTipo.cs" />
     <Compile Include="Enum\Tipo.cs" />
     <Compile Include="Enum\Operadora.cs" />
@@ -92,6 +100,7 @@
     <Compile Include="Enum\TipoValor.cs" />
     <Compile Include="Enum\Zoop\PaymenMethodMode.cs" />
     <Compile Include="Enum\Zoop\TransacaoStatus.cs" />
+    <Compile Include="Operadora\Itau.cs" />
     <Compile Include="Operadora\Inter.cs" />
     <Compile Include="Operadora\Asaas.cs" />
     <Compile Include="Operadora\GerenciaNet.cs" />

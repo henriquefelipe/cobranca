@@ -11,5 +11,5 @@ namespace Cobranca.Domain
     {
         public string Status { get; set; }
         public string IdentificadorPagamento { get; set; }
-    }
+    }    
 }
