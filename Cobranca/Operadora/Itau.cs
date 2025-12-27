@@ -1,5 +1,4 @@
 ﻿using Cobranca.Domain;
-using Cobranca.Domain.Inter;
 using Cobranca.Domain.Itau;
 using Cobranca.Utils;
 using Newtonsoft.Json;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cobranca.Domain.Rede
 {
-    internal class TransactionsResponseViewModel
+    public class TransactionsResponseViewModel
     {
         public ContentViewModel Content { get; set; }
         public CursorViewModel Cursor { get; set; }

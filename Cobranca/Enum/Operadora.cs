@@ -9,9 +9,10 @@ namespace Cobranca.Enum
     public enum Operadora
     {
         GerenciaNet = 0,
-        BancoInter = 1,
+        Inter = 1,
         Asaas = 2,
         Zoop = 3,
-        Itau = 4
+        Itau = 4,
+        Rede = 5
     }
 }

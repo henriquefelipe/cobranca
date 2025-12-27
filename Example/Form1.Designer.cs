@@ -29,14 +29,10 @@ namespace Example
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnGerarCobranca = new System.Windows.Forms.Button();
-            this.btnStatusCobranca = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cboOperadora = new System.Windows.Forms.ComboBox();
             this.txtValor = new System.Windows.Forms.TextBox();
-            this.imgQrCode = new System.Windows.Forms.PictureBox();
-            this.btnDevolucaoCobranca = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageAsaas = new System.Windows.Forms.TabPage();
             this.txtAsaasChave = new System.Windows.Forms.TextBox();
@@ -64,32 +60,13 @@ namespace Example
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.tabPageZoop = new System.Windows.Forms.TabPage();
-            this.txtZoopSellerId = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.txtZoopKey = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtZoopMarketplaceId = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.cboTipo = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btnBuscarCliente = new System.Windows.Forms.Button();
-            this.txtCNPJCPF = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.btnCadastrarCliente = new System.Windows.Forms.Button();
-            this.btnBuscarCobranca = new System.Windows.Forms.Button();
-            this.txtClientes2023 = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.btnCLientes2023 = new System.Windows.Forms.Button();
-            this.btnPagarPix = new System.Windows.Forms.Button();
-            this.txtIdentificador = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txtPixChave = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.btnConsultaPix = new System.Windows.Forms.Button();
-            this.txtNomeCliente = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
             this.tabPageItau = new System.Windows.Forms.TabPage();
+            this.txtItauCNPJ = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtItauConta = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtItauAgencia = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.txtItauCertificadoSenha = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.txtItauCertificadoCaminho = new System.Windows.Forms.TextBox();
@@ -101,49 +78,74 @@ namespace Example
             this.label26 = new System.Windows.Forms.Label();
             this.txtItauClientID = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.txtItauAgencia = new System.Windows.Forms.TextBox();
-            this.txtItauConta = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.txtItauCNPJ = new System.Windows.Forms.TextBox();
+            this.tabPageRede = new System.Windows.Forms.TabPage();
+            this.txtRedeToken = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.btnRedeGerarToken = new System.Windows.Forms.Button();
+            this.txtRedeSecret = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.txtRedeClientID = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.tabPageZoop = new System.Windows.Forms.TabPage();
+            this.txtZoopSellerId = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtZoopKey = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtZoopMarketplaceId = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.cboTipo = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtIdentificador = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPageBoleto = new System.Windows.Forms.TabPage();
+            this.btnDevolucaoCobranca = new System.Windows.Forms.Button();
+            this.btnStatusCobranca = new System.Windows.Forms.Button();
+            this.btnBuscarCobranca = new System.Windows.Forms.Button();
+            this.btnGerarCobranca = new System.Windows.Forms.Button();
+            this.tabPageCartao = new System.Windows.Forms.TabPage();
+            this.tabPageCartaoRecebimento = new System.Windows.Forms.TabPage();
+            this.tabPageCliente = new System.Windows.Forms.TabPage();
+            this.btnCLientes2023 = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtClientes2023 = new System.Windows.Forms.TextBox();
+            this.btnCadastrarCliente = new System.Windows.Forms.Button();
+            this.btnBuscarCliente = new System.Windows.Forms.Button();
+            this.txtCNPJCPF = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtNomeCliente = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.tabPagePagamento = new System.Windows.Forms.TabPage();
+            this.txtPixChave = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.btnConsultarVariosPix = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.imgQrCode)).BeginInit();
+            this.btnConsultaPix = new System.Windows.Forms.Button();
+            this.btnPagarPix = new System.Windows.Forms.Button();
+            this.tabPagePIX = new System.Windows.Forms.TabPage();
+            this.imgQrCode = new System.Windows.Forms.PictureBox();
+            this.btnCartaoRecebimentoVendas = new System.Windows.Forms.Button();
+            this.btnCartaoRecebimentoPagamentos = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageAsaas.SuspendLayout();
             this.tabPageInter.SuspendLayout();
             this.tabPageGerenciaNet.SuspendLayout();
-            this.tabPageZoop.SuspendLayout();
             this.tabPageItau.SuspendLayout();
+            this.tabPageRede.SuspendLayout();
+            this.tabPageZoop.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPageBoleto.SuspendLayout();
+            this.tabPageCartaoRecebimento.SuspendLayout();
+            this.tabPageCliente.SuspendLayout();
+            this.tabPagePagamento.SuspendLayout();
+            this.tabPagePIX.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgQrCode)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnGerarCobranca
-            // 
-            this.btnGerarCobranca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGerarCobranca.Location = new System.Drawing.Point(40, 325);
-            this.btnGerarCobranca.Name = "btnGerarCobranca";
-            this.btnGerarCobranca.Size = new System.Drawing.Size(182, 33);
-            this.btnGerarCobranca.TabIndex = 0;
-            this.btnGerarCobranca.Text = "Gerar Cobrança";
-            this.btnGerarCobranca.UseVisualStyleBackColor = true;
-            this.btnGerarCobranca.Click += new System.EventHandler(this.btnGerarCobranca_Click);
-            // 
-            // btnStatusCobranca
-            // 
-            this.btnStatusCobranca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStatusCobranca.Location = new System.Drawing.Point(425, 325);
-            this.btnStatusCobranca.Name = "btnStatusCobranca";
-            this.btnStatusCobranca.Size = new System.Drawing.Size(154, 33);
-            this.btnStatusCobranca.TabIndex = 1;
-            this.btnStatusCobranca.Text = "Status Cobrança";
-            this.btnStatusCobranca.UseVisualStyleBackColor = true;
-            this.btnStatusCobranca.Click += new System.EventHandler(this.btnStatusCobranca_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(58, 226);
+            this.label1.Location = new System.Drawing.Point(22, 227);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 20);
             this.label1.TabIndex = 2;
@@ -153,7 +155,7 @@ namespace Example
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(58, 279);
+            this.label2.Location = new System.Drawing.Point(22, 266);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 20);
             this.label2.TabIndex = 3;
@@ -164,7 +166,7 @@ namespace Example
             this.cboOperadora.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboOperadora.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboOperadora.FormattingEnabled = true;
-            this.cboOperadora.Location = new System.Drawing.Point(172, 219);
+            this.cboOperadora.Location = new System.Drawing.Point(150, 219);
             this.cboOperadora.Name = "cboOperadora";
             this.cboOperadora.Size = new System.Drawing.Size(247, 28);
             this.cboOperadora.TabIndex = 4;
@@ -172,30 +174,11 @@ namespace Example
             // txtValor
             // 
             this.txtValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValor.Location = new System.Drawing.Point(172, 276);
+            this.txtValor.Location = new System.Drawing.Point(150, 266);
             this.txtValor.Name = "txtValor";
             this.txtValor.Size = new System.Drawing.Size(173, 26);
             this.txtValor.TabIndex = 5;
-            this.txtValor.Text = "5,00";
-            // 
-            // imgQrCode
-            // 
-            this.imgQrCode.Location = new System.Drawing.Point(651, 433);
-            this.imgQrCode.Name = "imgQrCode";
-            this.imgQrCode.Size = new System.Drawing.Size(176, 211);
-            this.imgQrCode.TabIndex = 6;
-            this.imgQrCode.TabStop = false;
-            // 
-            // btnDevolucaoCobranca
-            // 
-            this.btnDevolucaoCobranca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDevolucaoCobranca.Location = new System.Drawing.Point(614, 325);
-            this.btnDevolucaoCobranca.Name = "btnDevolucaoCobranca";
-            this.btnDevolucaoCobranca.Size = new System.Drawing.Size(197, 33);
-            this.btnDevolucaoCobranca.TabIndex = 7;
-            this.btnDevolucaoCobranca.Text = "Devolução Cobrança";
-            this.btnDevolucaoCobranca.UseVisualStyleBackColor = true;
-            this.btnDevolucaoCobranca.Click += new System.EventHandler(this.btnDevolucaoCobranca_Click);
+            this.txtValor.Text = "0,03";
             // 
             // tabControl1
             // 
@@ -203,6 +186,7 @@ namespace Example
             this.tabControl1.Controls.Add(this.tabPageInter);
             this.tabControl1.Controls.Add(this.tabPageGerenciaNet);
             this.tabControl1.Controls.Add(this.tabPageItau);
+            this.tabControl1.Controls.Add(this.tabPageRede);
             this.tabControl1.Controls.Add(this.tabPageZoop);
             this.tabControl1.Location = new System.Drawing.Point(22, 12);
             this.tabControl1.Name = "tabControl1";
@@ -398,7 +382,7 @@ namespace Example
             this.tabPageGerenciaNet.Controls.Add(this.label3);
             this.tabPageGerenciaNet.Location = new System.Drawing.Point(4, 22);
             this.tabPageGerenciaNet.Name = "tabPageGerenciaNet";
-            this.tabPageGerenciaNet.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageGerenciaNet.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageGerenciaNet.Size = new System.Drawing.Size(801, 163);
             this.tabPageGerenciaNet.TabIndex = 0;
             this.tabPageGerenciaNet.Text = "GerenciaNet";
@@ -480,255 +464,6 @@ namespace Example
             this.label3.TabIndex = 9;
             this.label3.Text = "Certificado";
             // 
-            // tabPageZoop
-            // 
-            this.tabPageZoop.Controls.Add(this.txtZoopSellerId);
-            this.tabPageZoop.Controls.Add(this.label21);
-            this.tabPageZoop.Controls.Add(this.txtZoopKey);
-            this.tabPageZoop.Controls.Add(this.label20);
-            this.tabPageZoop.Controls.Add(this.txtZoopMarketplaceId);
-            this.tabPageZoop.Controls.Add(this.label19);
-            this.tabPageZoop.Location = new System.Drawing.Point(4, 22);
-            this.tabPageZoop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPageZoop.Name = "tabPageZoop";
-            this.tabPageZoop.Size = new System.Drawing.Size(801, 163);
-            this.tabPageZoop.TabIndex = 3;
-            this.tabPageZoop.Text = "Zoop";
-            this.tabPageZoop.UseVisualStyleBackColor = true;
-            // 
-            // txtZoopSellerId
-            // 
-            this.txtZoopSellerId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZoopSellerId.Location = new System.Drawing.Point(155, 77);
-            this.txtZoopSellerId.Name = "txtZoopSellerId";
-            this.txtZoopSellerId.Size = new System.Drawing.Size(192, 26);
-            this.txtZoopSellerId.TabIndex = 31;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(695, 73);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(114, 20);
-            this.label21.TabIndex = 30;
-            this.label21.Text = "Marketplace Id";
-            // 
-            // txtZoopKey
-            // 
-            this.txtZoopKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZoopKey.Location = new System.Drawing.Point(380, 27);
-            this.txtZoopKey.Name = "txtZoopKey";
-            this.txtZoopKey.Size = new System.Drawing.Size(265, 26);
-            this.txtZoopKey.TabIndex = 29;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(669, 31);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(53, 20);
-            this.label20.TabIndex = 28;
-            this.label20.Text = "Token";
-            // 
-            // txtZoopMarketplaceId
-            // 
-            this.txtZoopMarketplaceId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZoopMarketplaceId.Location = new System.Drawing.Point(368, 71);
-            this.txtZoopMarketplaceId.Name = "txtZoopMarketplaceId";
-            this.txtZoopMarketplaceId.Size = new System.Drawing.Size(342, 26);
-            this.txtZoopMarketplaceId.TabIndex = 27;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(13, 71);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(67, 20);
-            this.label19.TabIndex = 26;
-            this.label19.Text = "Seller Id";
-            // 
-            // cboTipo
-            // 
-            this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboTipo.FormattingEnabled = true;
-            this.cboTipo.Location = new System.Drawing.Point(584, 219);
-            this.cboTipo.Name = "cboTipo";
-            this.cboTipo.Size = new System.Drawing.Size(247, 28);
-            this.cboTipo.TabIndex = 10;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(448, 227);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 20);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Tipo";
-            // 
-            // btnBuscarCliente
-            // 
-            this.btnBuscarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarCliente.Location = new System.Drawing.Point(40, 533);
-            this.btnBuscarCliente.Name = "btnBuscarCliente";
-            this.btnBuscarCliente.Size = new System.Drawing.Size(182, 33);
-            this.btnBuscarCliente.TabIndex = 11;
-            this.btnBuscarCliente.Text = "Buscar Cliente";
-            this.btnBuscarCliente.UseVisualStyleBackColor = true;
-            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
-            // 
-            // txtCNPJCPF
-            // 
-            this.txtCNPJCPF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCNPJCPF.Location = new System.Drawing.Point(452, 490);
-            this.txtCNPJCPF.Name = "txtCNPJCPF";
-            this.txtCNPJCPF.Size = new System.Drawing.Size(173, 26);
-            this.txtCNPJCPF.TabIndex = 13;
-            this.txtCNPJCPF.Text = "51608691071";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(338, 494);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(84, 20);
-            this.label9.TabIndex = 12;
-            this.label9.Text = "CPF/CNPJ";
-            // 
-            // btnCadastrarCliente
-            // 
-            this.btnCadastrarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCadastrarCliente.Location = new System.Drawing.Point(237, 533);
-            this.btnCadastrarCliente.Name = "btnCadastrarCliente";
-            this.btnCadastrarCliente.Size = new System.Drawing.Size(182, 33);
-            this.btnCadastrarCliente.TabIndex = 14;
-            this.btnCadastrarCliente.Text = "Cadastrar Cliente";
-            this.btnCadastrarCliente.UseVisualStyleBackColor = true;
-            this.btnCadastrarCliente.Click += new System.EventHandler(this.btnCadastrarCliente_Click);
-            // 
-            // btnBuscarCobranca
-            // 
-            this.btnBuscarCobranca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarCobranca.Location = new System.Drawing.Point(228, 325);
-            this.btnBuscarCobranca.Name = "btnBuscarCobranca";
-            this.btnBuscarCobranca.Size = new System.Drawing.Size(182, 33);
-            this.btnBuscarCobranca.TabIndex = 15;
-            this.btnBuscarCobranca.Text = "Buscar Cobrança";
-            this.btnBuscarCobranca.UseVisualStyleBackColor = true;
-            this.btnBuscarCobranca.Click += new System.EventHandler(this.btnBuscarCobranca_Click);
-            // 
-            // txtClientes2023
-            // 
-            this.txtClientes2023.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClientes2023.Location = new System.Drawing.Point(171, 586);
-            this.txtClientes2023.Name = "txtClientes2023";
-            this.txtClientes2023.Size = new System.Drawing.Size(173, 26);
-            this.txtClientes2023.TabIndex = 16;
-            this.txtClientes2023.Text = "0";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(58, 590);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(106, 20);
-            this.label16.TabIndex = 17;
-            this.label16.Text = "Clientes 2023";
-            // 
-            // btnCLientes2023
-            // 
-            this.btnCLientes2023.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCLientes2023.Location = new System.Drawing.Point(356, 583);
-            this.btnCLientes2023.Name = "btnCLientes2023";
-            this.btnCLientes2023.Size = new System.Drawing.Size(137, 33);
-            this.btnCLientes2023.TabIndex = 18;
-            this.btnCLientes2023.Text = "Buscar";
-            this.btnCLientes2023.UseVisualStyleBackColor = true;
-            this.btnCLientes2023.Click += new System.EventHandler(this.btnCLientes2023_Click);
-            // 
-            // btnPagarPix
-            // 
-            this.btnPagarPix.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPagarPix.Location = new System.Drawing.Point(40, 373);
-            this.btnPagarPix.Name = "btnPagarPix";
-            this.btnPagarPix.Size = new System.Drawing.Size(182, 33);
-            this.btnPagarPix.TabIndex = 19;
-            this.btnPagarPix.Text = "Pagar PIX";
-            this.btnPagarPix.UseVisualStyleBackColor = true;
-            this.btnPagarPix.Click += new System.EventHandler(this.btnPagarPix_Click);
-            // 
-            // txtIdentificador
-            // 
-            this.txtIdentificador.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIdentificador.Location = new System.Drawing.Point(150, 440);
-            this.txtIdentificador.Name = "txtIdentificador";
-            this.txtIdentificador.Size = new System.Drawing.Size(174, 26);
-            this.txtIdentificador.TabIndex = 21;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(36, 443);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(97, 20);
-            this.label17.TabIndex = 20;
-            this.label17.Text = "Identificador";
-            // 
-            // txtPixChave
-            // 
-            this.txtPixChave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPixChave.Location = new System.Drawing.Point(452, 443);
-            this.txtPixChave.Name = "txtPixChave";
-            this.txtPixChave.Size = new System.Drawing.Size(174, 26);
-            this.txtPixChave.TabIndex = 23;
-            this.txtPixChave.Text = "85987704779";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(338, 445);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(84, 20);
-            this.label18.TabIndex = 22;
-            this.label18.Text = "Chave PIX";
-            // 
-            // btnConsultaPix
-            // 
-            this.btnConsultaPix.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultaPix.Location = new System.Drawing.Point(228, 373);
-            this.btnConsultaPix.Name = "btnConsultaPix";
-            this.btnConsultaPix.Size = new System.Drawing.Size(182, 33);
-            this.btnConsultaPix.TabIndex = 24;
-            this.btnConsultaPix.Text = "Consulta PIX";
-            this.btnConsultaPix.UseVisualStyleBackColor = true;
-            this.btnConsultaPix.Click += new System.EventHandler(this.btnConsultaPix_Click);
-            // 
-            // txtNomeCliente
-            // 
-            this.txtNomeCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNomeCliente.Location = new System.Drawing.Point(150, 490);
-            this.txtNomeCliente.Name = "txtNomeCliente";
-            this.txtNomeCliente.Size = new System.Drawing.Size(173, 26);
-            this.txtNomeCliente.TabIndex = 26;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(36, 494);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(51, 20);
-            this.label22.TabIndex = 25;
-            this.label22.Text = "Nome";
-            // 
             // tabPageItau
             // 
             this.tabPageItau.Controls.Add(this.txtItauCNPJ);
@@ -754,6 +489,60 @@ namespace Example
             this.tabPageItau.TabIndex = 4;
             this.tabPageItau.Text = "Itaú";
             this.tabPageItau.UseVisualStyleBackColor = true;
+            // 
+            // txtItauCNPJ
+            // 
+            this.txtItauCNPJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtItauCNPJ.Location = new System.Drawing.Point(638, 85);
+            this.txtItauCNPJ.Name = "txtItauCNPJ";
+            this.txtItauCNPJ.Size = new System.Drawing.Size(148, 26);
+            this.txtItauCNPJ.TabIndex = 46;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(554, 88);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(49, 20);
+            this.label30.TabIndex = 45;
+            this.label30.Text = "CNPJ";
+            // 
+            // txtItauConta
+            // 
+            this.txtItauConta.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtItauConta.Location = new System.Drawing.Point(399, 85);
+            this.txtItauConta.Name = "txtItauConta";
+            this.txtItauConta.Size = new System.Drawing.Size(148, 26);
+            this.txtItauConta.TabIndex = 44;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(317, 88);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(52, 20);
+            this.label29.TabIndex = 43;
+            this.label29.Text = "Conta";
+            // 
+            // txtItauAgencia
+            // 
+            this.txtItauAgencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtItauAgencia.Location = new System.Drawing.Point(149, 85);
+            this.txtItauAgencia.Name = "txtItauAgencia";
+            this.txtItauAgencia.Size = new System.Drawing.Size(148, 26);
+            this.txtItauAgencia.TabIndex = 42;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(11, 83);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(67, 20);
+            this.label28.TabIndex = 41;
+            this.label28.Text = "Agencia";
             // 
             // txtItauCertificadoSenha
             // 
@@ -862,109 +651,511 @@ namespace Example
             this.label27.TabIndex = 31;
             this.label27.Text = "Client ID";
             // 
-            // label28
+            // tabPageRede
             // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(11, 83);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(67, 20);
-            this.label28.TabIndex = 41;
-            this.label28.Text = "Agencia";
+            this.tabPageRede.Controls.Add(this.txtRedeToken);
+            this.tabPageRede.Controls.Add(this.label31);
+            this.tabPageRede.Controls.Add(this.btnRedeGerarToken);
+            this.tabPageRede.Controls.Add(this.txtRedeSecret);
+            this.tabPageRede.Controls.Add(this.label32);
+            this.tabPageRede.Controls.Add(this.txtRedeClientID);
+            this.tabPageRede.Controls.Add(this.label33);
+            this.tabPageRede.Location = new System.Drawing.Point(4, 22);
+            this.tabPageRede.Name = "tabPageRede";
+            this.tabPageRede.Size = new System.Drawing.Size(801, 163);
+            this.tabPageRede.TabIndex = 5;
+            this.tabPageRede.Text = "Rede";
+            this.tabPageRede.UseVisualStyleBackColor = true;
             // 
-            // txtItauAgencia
+            // txtRedeToken
             // 
-            this.txtItauAgencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtItauAgencia.Location = new System.Drawing.Point(149, 85);
-            this.txtItauAgencia.Name = "txtItauAgencia";
-            this.txtItauAgencia.Size = new System.Drawing.Size(148, 26);
-            this.txtItauAgencia.TabIndex = 42;
+            this.txtRedeToken.Enabled = false;
+            this.txtRedeToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRedeToken.Location = new System.Drawing.Point(147, 117);
+            this.txtRedeToken.Name = "txtRedeToken";
+            this.txtRedeToken.Size = new System.Drawing.Size(435, 26);
+            this.txtRedeToken.TabIndex = 43;
             // 
-            // txtItauConta
+            // label31
             // 
-            this.txtItauConta.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtItauConta.Location = new System.Drawing.Point(399, 85);
-            this.txtItauConta.Name = "txtItauConta";
-            this.txtItauConta.Size = new System.Drawing.Size(148, 26);
-            this.txtItauConta.TabIndex = 44;
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(11, 117);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(53, 20);
+            this.label31.TabIndex = 42;
+            this.label31.Text = "Token";
             // 
-            // label29
+            // btnRedeGerarToken
             // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(317, 88);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(52, 20);
-            this.label29.TabIndex = 43;
-            this.label29.Text = "Conta";
+            this.btnRedeGerarToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRedeGerarToken.Location = new System.Drawing.Point(607, 117);
+            this.btnRedeGerarToken.Name = "btnRedeGerarToken";
+            this.btnRedeGerarToken.Size = new System.Drawing.Size(182, 33);
+            this.btnRedeGerarToken.TabIndex = 37;
+            this.btnRedeGerarToken.Text = "Gerar Token";
+            this.btnRedeGerarToken.UseVisualStyleBackColor = true;
+            this.btnRedeGerarToken.Click += new System.EventHandler(this.btnRedeGerarToken_Click);
             // 
-            // label30
+            // txtRedeSecret
             // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(554, 88);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(49, 20);
-            this.label30.TabIndex = 45;
-            this.label30.Text = "CNPJ";
+            this.txtRedeSecret.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRedeSecret.Location = new System.Drawing.Point(523, 13);
+            this.txtRedeSecret.Name = "txtRedeSecret";
+            this.txtRedeSecret.Size = new System.Drawing.Size(266, 26);
+            this.txtRedeSecret.TabIndex = 41;
             // 
-            // txtItauCNPJ
+            // label32
             // 
-            this.txtItauCNPJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtItauCNPJ.Location = new System.Drawing.Point(638, 85);
-            this.txtItauCNPJ.Name = "txtItauCNPJ";
-            this.txtItauCNPJ.Size = new System.Drawing.Size(148, 26);
-            this.txtItauCNPJ.TabIndex = 46;
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(400, 19);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(100, 20);
+            this.label32.TabIndex = 40;
+            this.label32.Text = "Client Secret";
+            // 
+            // txtRedeClientID
+            // 
+            this.txtRedeClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRedeClientID.Location = new System.Drawing.Point(147, 16);
+            this.txtRedeClientID.Name = "txtRedeClientID";
+            this.txtRedeClientID.Size = new System.Drawing.Size(247, 26);
+            this.txtRedeClientID.TabIndex = 39;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Location = new System.Drawing.Point(11, 19);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(70, 20);
+            this.label33.TabIndex = 38;
+            this.label33.Text = "Client ID";
+            // 
+            // tabPageZoop
+            // 
+            this.tabPageZoop.Controls.Add(this.txtZoopSellerId);
+            this.tabPageZoop.Controls.Add(this.label21);
+            this.tabPageZoop.Controls.Add(this.txtZoopKey);
+            this.tabPageZoop.Controls.Add(this.label20);
+            this.tabPageZoop.Controls.Add(this.txtZoopMarketplaceId);
+            this.tabPageZoop.Controls.Add(this.label19);
+            this.tabPageZoop.Location = new System.Drawing.Point(4, 22);
+            this.tabPageZoop.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageZoop.Name = "tabPageZoop";
+            this.tabPageZoop.Size = new System.Drawing.Size(801, 163);
+            this.tabPageZoop.TabIndex = 3;
+            this.tabPageZoop.Text = "Zoop";
+            this.tabPageZoop.UseVisualStyleBackColor = true;
+            // 
+            // txtZoopSellerId
+            // 
+            this.txtZoopSellerId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtZoopSellerId.Location = new System.Drawing.Point(155, 77);
+            this.txtZoopSellerId.Name = "txtZoopSellerId";
+            this.txtZoopSellerId.Size = new System.Drawing.Size(192, 26);
+            this.txtZoopSellerId.TabIndex = 31;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(695, 73);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(114, 20);
+            this.label21.TabIndex = 30;
+            this.label21.Text = "Marketplace Id";
+            // 
+            // txtZoopKey
+            // 
+            this.txtZoopKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtZoopKey.Location = new System.Drawing.Point(380, 27);
+            this.txtZoopKey.Name = "txtZoopKey";
+            this.txtZoopKey.Size = new System.Drawing.Size(265, 26);
+            this.txtZoopKey.TabIndex = 29;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(669, 31);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(53, 20);
+            this.label20.TabIndex = 28;
+            this.label20.Text = "Token";
+            // 
+            // txtZoopMarketplaceId
+            // 
+            this.txtZoopMarketplaceId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtZoopMarketplaceId.Location = new System.Drawing.Point(368, 71);
+            this.txtZoopMarketplaceId.Name = "txtZoopMarketplaceId";
+            this.txtZoopMarketplaceId.Size = new System.Drawing.Size(342, 26);
+            this.txtZoopMarketplaceId.TabIndex = 27;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(13, 71);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(67, 20);
+            this.label19.TabIndex = 26;
+            this.label19.Text = "Seller Id";
+            // 
+            // cboTipo
+            // 
+            this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboTipo.FormattingEnabled = true;
+            this.cboTipo.Location = new System.Drawing.Point(580, 219);
+            this.cboTipo.Name = "cboTipo";
+            this.cboTipo.Size = new System.Drawing.Size(247, 28);
+            this.cboTipo.TabIndex = 10;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(448, 227);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(39, 20);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Tipo";
+            // 
+            // txtIdentificador
+            // 
+            this.txtIdentificador.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIdentificador.Location = new System.Drawing.Point(580, 260);
+            this.txtIdentificador.Name = "txtIdentificador";
+            this.txtIdentificador.Size = new System.Drawing.Size(247, 26);
+            this.txtIdentificador.TabIndex = 21;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(448, 269);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(97, 20);
+            this.label17.TabIndex = 20;
+            this.label17.Text = "Identificador";
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPageBoleto);
+            this.tabControl2.Controls.Add(this.tabPageCartao);
+            this.tabControl2.Controls.Add(this.tabPageCartaoRecebimento);
+            this.tabControl2.Controls.Add(this.tabPageCliente);
+            this.tabControl2.Controls.Add(this.tabPagePagamento);
+            this.tabControl2.Controls.Add(this.tabPagePIX);
+            this.tabControl2.Location = new System.Drawing.Point(26, 313);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(801, 322);
+            this.tabControl2.TabIndex = 28;
+            // 
+            // tabPageBoleto
+            // 
+            this.tabPageBoleto.Controls.Add(this.btnDevolucaoCobranca);
+            this.tabPageBoleto.Controls.Add(this.btnStatusCobranca);
+            this.tabPageBoleto.Controls.Add(this.btnBuscarCobranca);
+            this.tabPageBoleto.Controls.Add(this.btnGerarCobranca);
+            this.tabPageBoleto.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBoleto.Name = "tabPageBoleto";
+            this.tabPageBoleto.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageBoleto.Size = new System.Drawing.Size(793, 296);
+            this.tabPageBoleto.TabIndex = 0;
+            this.tabPageBoleto.Text = "Boleto";
+            this.tabPageBoleto.UseVisualStyleBackColor = true;
+            // 
+            // btnDevolucaoCobranca
+            // 
+            this.btnDevolucaoCobranca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDevolucaoCobranca.Location = new System.Drawing.Point(166, 69);
+            this.btnDevolucaoCobranca.Name = "btnDevolucaoCobranca";
+            this.btnDevolucaoCobranca.Size = new System.Drawing.Size(154, 33);
+            this.btnDevolucaoCobranca.TabIndex = 18;
+            this.btnDevolucaoCobranca.Text = "Devolução Cob.";
+            this.btnDevolucaoCobranca.UseVisualStyleBackColor = true;
+            // 
+            // btnStatusCobranca
+            // 
+            this.btnStatusCobranca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStatusCobranca.Location = new System.Drawing.Point(6, 69);
+            this.btnStatusCobranca.Name = "btnStatusCobranca";
+            this.btnStatusCobranca.Size = new System.Drawing.Size(154, 33);
+            this.btnStatusCobranca.TabIndex = 17;
+            this.btnStatusCobranca.Text = "Status Cobrança";
+            this.btnStatusCobranca.UseVisualStyleBackColor = true;
+            // 
+            // btnBuscarCobranca
+            // 
+            this.btnBuscarCobranca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarCobranca.Location = new System.Drawing.Point(166, 18);
+            this.btnBuscarCobranca.Name = "btnBuscarCobranca";
+            this.btnBuscarCobranca.Size = new System.Drawing.Size(154, 33);
+            this.btnBuscarCobranca.TabIndex = 16;
+            this.btnBuscarCobranca.Text = "Buscar Cobrança";
+            this.btnBuscarCobranca.UseVisualStyleBackColor = true;
+            // 
+            // btnGerarCobranca
+            // 
+            this.btnGerarCobranca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGerarCobranca.Location = new System.Drawing.Point(6, 18);
+            this.btnGerarCobranca.Name = "btnGerarCobranca";
+            this.btnGerarCobranca.Size = new System.Drawing.Size(154, 33);
+            this.btnGerarCobranca.TabIndex = 1;
+            this.btnGerarCobranca.Text = "Gerar Cobrança";
+            this.btnGerarCobranca.UseVisualStyleBackColor = true;
+            // 
+            // tabPageCartao
+            // 
+            this.tabPageCartao.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCartao.Name = "tabPageCartao";
+            this.tabPageCartao.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCartao.Size = new System.Drawing.Size(793, 296);
+            this.tabPageCartao.TabIndex = 1;
+            this.tabPageCartao.Text = "Cartão";
+            this.tabPageCartao.UseVisualStyleBackColor = true;
+            // 
+            // tabPageCartaoRecebimento
+            // 
+            this.tabPageCartaoRecebimento.Controls.Add(this.btnCartaoRecebimentoPagamentos);
+            this.tabPageCartaoRecebimento.Controls.Add(this.btnCartaoRecebimentoVendas);
+            this.tabPageCartaoRecebimento.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCartaoRecebimento.Name = "tabPageCartaoRecebimento";
+            this.tabPageCartaoRecebimento.Size = new System.Drawing.Size(793, 296);
+            this.tabPageCartaoRecebimento.TabIndex = 2;
+            this.tabPageCartaoRecebimento.Text = "Cartão Recebimento";
+            this.tabPageCartaoRecebimento.UseVisualStyleBackColor = true;
+            // 
+            // tabPageCliente
+            // 
+            this.tabPageCliente.Controls.Add(this.btnCLientes2023);
+            this.tabPageCliente.Controls.Add(this.label16);
+            this.tabPageCliente.Controls.Add(this.txtClientes2023);
+            this.tabPageCliente.Controls.Add(this.btnCadastrarCliente);
+            this.tabPageCliente.Controls.Add(this.btnBuscarCliente);
+            this.tabPageCliente.Controls.Add(this.txtCNPJCPF);
+            this.tabPageCliente.Controls.Add(this.label9);
+            this.tabPageCliente.Controls.Add(this.txtNomeCliente);
+            this.tabPageCliente.Controls.Add(this.label22);
+            this.tabPageCliente.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCliente.Name = "tabPageCliente";
+            this.tabPageCliente.Size = new System.Drawing.Size(793, 296);
+            this.tabPageCliente.TabIndex = 5;
+            this.tabPageCliente.Text = "Cliente";
+            this.tabPageCliente.UseVisualStyleBackColor = true;
+            // 
+            // btnCLientes2023
+            // 
+            this.btnCLientes2023.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCLientes2023.Location = new System.Drawing.Point(343, 175);
+            this.btnCLientes2023.Name = "btnCLientes2023";
+            this.btnCLientes2023.Size = new System.Drawing.Size(137, 33);
+            this.btnCLientes2023.TabIndex = 35;
+            this.btnCLientes2023.Text = "Buscar";
+            this.btnCLientes2023.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(18, 181);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(106, 20);
+            this.label16.TabIndex = 34;
+            this.label16.Text = "Clientes 2023";
+            // 
+            // txtClientes2023
+            // 
+            this.txtClientes2023.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtClientes2023.Location = new System.Drawing.Point(142, 175);
+            this.txtClientes2023.Name = "txtClientes2023";
+            this.txtClientes2023.Size = new System.Drawing.Size(173, 26);
+            this.txtClientes2023.TabIndex = 33;
+            this.txtClientes2023.Text = "0";
+            // 
+            // btnCadastrarCliente
+            // 
+            this.btnCadastrarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCadastrarCliente.Location = new System.Drawing.Point(585, 13);
+            this.btnCadastrarCliente.Name = "btnCadastrarCliente";
+            this.btnCadastrarCliente.Size = new System.Drawing.Size(182, 33);
+            this.btnCadastrarCliente.TabIndex = 32;
+            this.btnCadastrarCliente.Text = "Cadastrar Cliente";
+            this.btnCadastrarCliente.UseVisualStyleBackColor = true;
+            // 
+            // btnBuscarCliente
+            // 
+            this.btnBuscarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarCliente.Location = new System.Drawing.Point(585, 53);
+            this.btnBuscarCliente.Name = "btnBuscarCliente";
+            this.btnBuscarCliente.Size = new System.Drawing.Size(182, 33);
+            this.btnBuscarCliente.TabIndex = 31;
+            this.btnBuscarCliente.Text = "Buscar Cliente";
+            this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            // 
+            // txtCNPJCPF
+            // 
+            this.txtCNPJCPF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCNPJCPF.Location = new System.Drawing.Point(142, 66);
+            this.txtCNPJCPF.Name = "txtCNPJCPF";
+            this.txtCNPJCPF.Size = new System.Drawing.Size(173, 26);
+            this.txtCNPJCPF.TabIndex = 30;
+            this.txtCNPJCPF.Text = "51608691071";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(18, 66);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(84, 20);
+            this.label9.TabIndex = 29;
+            this.label9.Text = "CPF/CNPJ";
+            // 
+            // txtNomeCliente
+            // 
+            this.txtNomeCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNomeCliente.Location = new System.Drawing.Point(142, 20);
+            this.txtNomeCliente.Name = "txtNomeCliente";
+            this.txtNomeCliente.Size = new System.Drawing.Size(173, 26);
+            this.txtNomeCliente.TabIndex = 28;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(18, 20);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(51, 20);
+            this.label22.TabIndex = 27;
+            this.label22.Text = "Nome";
+            // 
+            // tabPagePagamento
+            // 
+            this.tabPagePagamento.Controls.Add(this.txtPixChave);
+            this.tabPagePagamento.Controls.Add(this.label18);
+            this.tabPagePagamento.Controls.Add(this.btnConsultarVariosPix);
+            this.tabPagePagamento.Controls.Add(this.btnConsultaPix);
+            this.tabPagePagamento.Controls.Add(this.btnPagarPix);
+            this.tabPagePagamento.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePagamento.Name = "tabPagePagamento";
+            this.tabPagePagamento.Size = new System.Drawing.Size(793, 296);
+            this.tabPagePagamento.TabIndex = 3;
+            this.tabPagePagamento.Text = "Pagamento";
+            this.tabPagePagamento.UseVisualStyleBackColor = true;
+            // 
+            // txtPixChave
+            // 
+            this.txtPixChave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPixChave.Location = new System.Drawing.Point(129, 71);
+            this.txtPixChave.Name = "txtPixChave";
+            this.txtPixChave.Size = new System.Drawing.Size(174, 26);
+            this.txtPixChave.TabIndex = 37;
+            this.txtPixChave.Text = "85987704779";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(6, 77);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(84, 20);
+            this.label18.TabIndex = 36;
+            this.label18.Text = "Chave PIX";
             // 
             // btnConsultarVariosPix
             // 
             this.btnConsultarVariosPix.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultarVariosPix.Location = new System.Drawing.Point(425, 373);
+            this.btnConsultarVariosPix.Location = new System.Drawing.Point(176, 20);
             this.btnConsultarVariosPix.Name = "btnConsultarVariosPix";
-            this.btnConsultarVariosPix.Size = new System.Drawing.Size(182, 33);
-            this.btnConsultarVariosPix.TabIndex = 27;
-            this.btnConsultarVariosPix.Text = "Consulta Vários PIX";
+            this.btnConsultarVariosPix.Size = new System.Drawing.Size(154, 33);
+            this.btnConsultarVariosPix.TabIndex = 35;
+            this.btnConsultarVariosPix.Text = "Cons. Vários PIX";
             this.btnConsultarVariosPix.UseVisualStyleBackColor = true;
-            this.btnConsultarVariosPix.Click += new System.EventHandler(this.btnConsultarVariosPix_Click);
+            // 
+            // btnConsultaPix
+            // 
+            this.btnConsultaPix.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultaPix.Location = new System.Drawing.Point(350, 20);
+            this.btnConsultaPix.Name = "btnConsultaPix";
+            this.btnConsultaPix.Size = new System.Drawing.Size(154, 33);
+            this.btnConsultaPix.TabIndex = 34;
+            this.btnConsultaPix.Text = "Consulta PIX";
+            this.btnConsultaPix.UseVisualStyleBackColor = true;
+            // 
+            // btnPagarPix
+            // 
+            this.btnPagarPix.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPagarPix.Location = new System.Drawing.Point(10, 20);
+            this.btnPagarPix.Name = "btnPagarPix";
+            this.btnPagarPix.Size = new System.Drawing.Size(154, 33);
+            this.btnPagarPix.TabIndex = 33;
+            this.btnPagarPix.Text = "Pagar PIX";
+            this.btnPagarPix.UseVisualStyleBackColor = true;
+            // 
+            // tabPagePIX
+            // 
+            this.tabPagePIX.Controls.Add(this.imgQrCode);
+            this.tabPagePIX.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePIX.Name = "tabPagePIX";
+            this.tabPagePIX.Size = new System.Drawing.Size(793, 296);
+            this.tabPagePIX.TabIndex = 4;
+            this.tabPagePIX.Text = "PIX";
+            this.tabPagePIX.UseVisualStyleBackColor = true;
+            // 
+            // imgQrCode
+            // 
+            this.imgQrCode.Location = new System.Drawing.Point(605, 82);
+            this.imgQrCode.Name = "imgQrCode";
+            this.imgQrCode.Size = new System.Drawing.Size(176, 211);
+            this.imgQrCode.TabIndex = 33;
+            this.imgQrCode.TabStop = false;
+            // 
+            // btnCartaoRecebimentoVendas
+            // 
+            this.btnCartaoRecebimentoVendas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCartaoRecebimentoVendas.Location = new System.Drawing.Point(10, 16);
+            this.btnCartaoRecebimentoVendas.Name = "btnCartaoRecebimentoVendas";
+            this.btnCartaoRecebimentoVendas.Size = new System.Drawing.Size(154, 33);
+            this.btnCartaoRecebimentoVendas.TabIndex = 2;
+            this.btnCartaoRecebimentoVendas.Text = "Vendas";
+            this.btnCartaoRecebimentoVendas.UseVisualStyleBackColor = true;
+            this.btnCartaoRecebimentoVendas.Click += new System.EventHandler(this.btnCartaoRecebimentoVendas_Click);
+            // 
+            // btnCartaoRecebimentoPagamentos
+            // 
+            this.btnCartaoRecebimentoPagamentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCartaoRecebimentoPagamentos.Location = new System.Drawing.Point(170, 16);
+            this.btnCartaoRecebimentoPagamentos.Name = "btnCartaoRecebimentoPagamentos";
+            this.btnCartaoRecebimentoPagamentos.Size = new System.Drawing.Size(154, 33);
+            this.btnCartaoRecebimentoPagamentos.TabIndex = 3;
+            this.btnCartaoRecebimentoPagamentos.Text = "Pagamentos";
+            this.btnCartaoRecebimentoPagamentos.UseVisualStyleBackColor = true;
+            this.btnCartaoRecebimentoPagamentos.Click += new System.EventHandler(this.btnCartaoRecebimentoPagamentos_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(843, 647);
-            this.Controls.Add(this.btnConsultarVariosPix);
-            this.Controls.Add(this.txtNomeCliente);
-            this.Controls.Add(this.label22);
-            this.Controls.Add(this.btnConsultaPix);
-            this.Controls.Add(this.txtPixChave);
-            this.Controls.Add(this.label18);
+            this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.txtIdentificador);
             this.Controls.Add(this.label17);
-            this.Controls.Add(this.btnPagarPix);
-            this.Controls.Add(this.btnCLientes2023);
-            this.Controls.Add(this.label16);
-            this.Controls.Add(this.txtClientes2023);
-            this.Controls.Add(this.btnBuscarCobranca);
-            this.Controls.Add(this.btnCadastrarCliente);
-            this.Controls.Add(this.txtCNPJCPF);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.btnBuscarCliente);
             this.Controls.Add(this.cboTipo);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.btnDevolucaoCobranca);
-            this.Controls.Add(this.imgQrCode);
             this.Controls.Add(this.txtValor);
             this.Controls.Add(this.cboOperadora);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnStatusCobranca);
-            this.Controls.Add(this.btnGerarCobranca);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Exemplo de Cobrança";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.imgQrCode)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPageAsaas.ResumeLayout(false);
             this.tabPageAsaas.PerformLayout();
@@ -972,25 +1163,31 @@ namespace Example
             this.tabPageInter.PerformLayout();
             this.tabPageGerenciaNet.ResumeLayout(false);
             this.tabPageGerenciaNet.PerformLayout();
-            this.tabPageZoop.ResumeLayout(false);
-            this.tabPageZoop.PerformLayout();
             this.tabPageItau.ResumeLayout(false);
             this.tabPageItau.PerformLayout();
+            this.tabPageRede.ResumeLayout(false);
+            this.tabPageRede.PerformLayout();
+            this.tabPageZoop.ResumeLayout(false);
+            this.tabPageZoop.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPageBoleto.ResumeLayout(false);
+            this.tabPageCartaoRecebimento.ResumeLayout(false);
+            this.tabPageCliente.ResumeLayout(false);
+            this.tabPageCliente.PerformLayout();
+            this.tabPagePagamento.ResumeLayout(false);
+            this.tabPagePagamento.PerformLayout();
+            this.tabPagePIX.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imgQrCode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnGerarCobranca;
-        private System.Windows.Forms.Button btnStatusCobranca;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cboOperadora;
         private System.Windows.Forms.TextBox txtValor;
-        private System.Windows.Forms.PictureBox imgQrCode;
-        private System.Windows.Forms.Button btnDevolucaoCobranca;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageGerenciaNet;
         private System.Windows.Forms.TextBox txtGerenciaNetClientSECRET;
@@ -1007,11 +1204,6 @@ namespace Example
         private System.Windows.Forms.TabPage tabPageInter;
         private System.Windows.Forms.TextBox txtAsaasChave;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button btnBuscarCliente;
-        private System.Windows.Forms.TextBox txtCNPJCPF;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button btnCadastrarCliente;
-        private System.Windows.Forms.Button btnBuscarCobranca;
         private System.Windows.Forms.TextBox txtInterClientSecret;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtInterClientId;
@@ -1025,15 +1217,8 @@ namespace Example
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtInterKey;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox txtClientes2023;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Button btnCLientes2023;
-        private System.Windows.Forms.Button btnPagarPix;
         private System.Windows.Forms.TextBox txtIdentificador;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox txtPixChave;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Button btnConsultaPix;
         private System.Windows.Forms.TabPage tabPageZoop;
         private System.Windows.Forms.TextBox txtZoopKey;
         private System.Windows.Forms.Label label20;
@@ -1041,8 +1226,6 @@ namespace Example
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtZoopSellerId;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox txtNomeCliente;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TabPage tabPageItau;
         private System.Windows.Forms.TextBox txtItauCertificadoSenha;
         private System.Windows.Forms.Label label23;
@@ -1061,7 +1244,42 @@ namespace Example
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox txtItauAgencia;
         private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TabPage tabPageRede;
+        private System.Windows.Forms.TextBox txtRedeToken;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Button btnRedeGerarToken;
+        private System.Windows.Forms.TextBox txtRedeSecret;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox txtRedeClientID;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPageBoleto;
+        private System.Windows.Forms.TabPage tabPageCartao;
+        private System.Windows.Forms.TabPage tabPageCartaoRecebimento;
+        private System.Windows.Forms.TabPage tabPageCliente;
+        private System.Windows.Forms.TextBox txtNomeCliente;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TabPage tabPagePagamento;
+        private System.Windows.Forms.TabPage tabPagePIX;
+        private System.Windows.Forms.Button btnDevolucaoCobranca;
+        private System.Windows.Forms.Button btnStatusCobranca;
+        private System.Windows.Forms.Button btnBuscarCobranca;
+        private System.Windows.Forms.Button btnGerarCobranca;
+        private System.Windows.Forms.Button btnCLientes2023;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtClientes2023;
+        private System.Windows.Forms.Button btnCadastrarCliente;
+        private System.Windows.Forms.Button btnBuscarCliente;
+        private System.Windows.Forms.TextBox txtCNPJCPF;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.PictureBox imgQrCode;
+        private System.Windows.Forms.TextBox txtPixChave;
+        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button btnConsultarVariosPix;
+        private System.Windows.Forms.Button btnConsultaPix;
+        private System.Windows.Forms.Button btnPagarPix;
+        private System.Windows.Forms.Button btnCartaoRecebimentoPagamentos;
+        private System.Windows.Forms.Button btnCartaoRecebimentoVendas;
     }
 }
 

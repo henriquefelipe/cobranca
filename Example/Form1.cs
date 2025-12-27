@@ -53,6 +53,9 @@ namespace Example
                     txtItauConta.Text = objeto.ItauConta;
                     txtItauCNPJ.Text = objeto.ItauDocumento;
 
+                    txtRedeClientID.Text = objeto.RedeClientId;
+                    txtRedeSecret.Text = objeto.RedeSecret;
+
                     txtZoopKey.Text = objeto.ZoopToken;
                     txtZoopMarketplaceId.Text = objeto.ZoopMarketplaceId;   
                     txtZoopSellerId.Text = objeto.ZoopSellerId;
@@ -84,10 +87,10 @@ namespace Example
             return credenciais;
         }
 
-        public Credenciais GetCredenciaisBancoInter()
+        public Credenciais GetCredenciaisInter()
         {
             var credenciais = new Credenciais();
-            credenciais.operadora = Cobranca.Enum.Operadora.BancoInter;
+            credenciais.operadora = Cobranca.Enum.Operadora.Inter;
             credenciais.tipo = (Cobranca.Enum.Tipo)cboTipo.SelectedItem;
             credenciais.client_id = txtInterClientId.Text;
             credenciais.client_secret = txtInterClientSecret.Text;
@@ -117,6 +120,19 @@ namespace Example
             return credenciais;
         }
 
+        public Credenciais GetCredenciaisRede()
+        {
+            var credenciais = new Credenciais();
+            credenciais.operadora = Cobranca.Enum.Operadora.Rede;
+            credenciais.tipo = (Cobranca.Enum.Tipo)cboTipo.SelectedItem;
+            credenciais.client_id = txtRedeClientID.Text;
+            credenciais.client_secret = txtRedeSecret.Text;
+            credenciais.isTest = true;          
+            credenciais.token = txtRedeToken.Text;
+
+            return credenciais;
+        }
+
         public Credenciais GetCredenciaisZoop()
         {
             var credenciais = new Credenciais();
@@ -136,10 +152,12 @@ namespace Example
                 return GetCredenciaisGerenciaNet();
             else if (operadora == Cobranca.Enum.Operadora.Asaas)
                 return GetCredenciaisAsaas();
-            else if (operadora == Cobranca.Enum.Operadora.BancoInter)
-                return GetCredenciaisBancoInter();
+            else if (operadora == Cobranca.Enum.Operadora.Inter)
+                return GetCredenciaisInter();
             else if (operadora == Cobranca.Enum.Operadora.Itau)
                 return GetCredenciaisItau();
+            else if (operadora == Cobranca.Enum.Operadora.Rede)
+                return GetCredenciaisRede();
             else if (operadora == Cobranca.Enum.Operadora.Zoop)
                 return GetCredenciaisZoop();
 
@@ -475,6 +493,46 @@ namespace Example
             {
                 MessageBox.Show(result.Message);
             }
+        }
+
+        private void btnRedeGerarToken_Click(object sender, EventArgs e)
+        {
+            var credenciais = GetCredenciais();
+            var cobrancaService = new CobrancaService(credenciais);
+            var result = cobrancaService.Autenticar();
+            if (result.Success)
+            {
+                txtRedeToken.Text = result.Result.access_token;
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
+        }
+
+        private void btnCartaoRecebimentoVendas_Click(object sender, EventArgs e)
+        {
+            var credenciais = GetCredenciais();
+            var cobrancaService = new CobrancaService(credenciais);
+
+            var filtro = new VendaCartaoRecebimentoFiltro();
+            filtro.Inicio = Convert.ToDateTime("07/12/2025");
+            filtro.Fim = Convert.ToDateTime("27/12/2025");
+            filtro.Subsidiaria = "13381369";
+            var result = cobrancaService.CartaoVenda(filtro);
+            if (result.Success)
+            {
+
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
+        }
+
+        private void btnCartaoRecebimentoPagamentos_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

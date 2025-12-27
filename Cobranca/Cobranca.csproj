@@ -71,6 +71,8 @@
     <Compile Include="Domain\PagamentoPixResult.cs" />
     <Compile Include="Domain\Recebimento.cs" />
     <Compile Include="Domain\Boleto\Boleto.cs" />
+    <Compile Include="Domain\VendaCartaoRecebimentoFiltro.cs" />
+    <Compile Include="Domain\VendaCartaoRecebimentoResult.cs" />
     <Compile Include="Domain\RecebimentoResult.cs" />
     <Compile Include="Domain\RecebimentoStatusResult.cs" />
     <Compile Include="Domain\CobResponse.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="Enum\TipoValor.cs" />
     <Compile Include="Enum\Zoop\PaymenMethodMode.cs" />
     <Compile Include="Enum\Zoop\TransacaoStatus.cs" />
+    <Compile Include="Operadora\Rede.cs" />
     <Compile Include="Operadora\Itau.cs" />
     <Compile Include="Operadora\Inter.cs" />
     <Compile Include="Operadora\Asaas.cs" />

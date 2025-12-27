@@ -25,7 +25,7 @@ namespace Cobranca.Service
         public GenericResult<Usuario> Autenticar()
         {
             var result = new GenericResult<Usuario>();
-            if (this.credenciais.operadora == Enum.Operadora.BancoInter)
+            if (this.credenciais.operadora == Enum.Operadora.Inter)
             {
                 var inter = new Inter(credenciais);
                 return inter.Token();
@@ -33,6 +33,11 @@ namespace Cobranca.Service
             else if (this.credenciais.operadora == Enum.Operadora.Itau)
             {
                 var inter = new Itau(credenciais);
+                return inter.Token();
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Rede)
+            {
+                var inter = new Rede(credenciais);
                 return inter.Token();
             }
 
@@ -349,7 +354,18 @@ namespace Cobranca.Service
                 result.Result.QrCode = resultLoc.Result.qrcode;
                 result.Success = true;
             }
-
+            else if (this.credenciais.operadora == Enum.Operadora.Itau)
+            {
+                result.Message = "Metodo não implementado para o itaú";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Rede)
+            {
+                result.Message = "Metodo não implementado para a rede";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Zoop)
+            {
+                result.Message = "Metodo não implementado para a zoop";
+            }
 
             return result;
         }
@@ -398,6 +414,18 @@ namespace Cobranca.Service
                     return result;
                 }
             }
+            else if (this.credenciais.operadora == Enum.Operadora.Itau)
+            {
+                result.Message = "Metodo não implementado para o itaú";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Rede)
+            {
+                result.Message = "Metodo não implementado para a rede";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Zoop)
+            {
+                result.Message = "Metodo não implementado para a zoop";
+            }
 
             return result;
         }
@@ -437,6 +465,18 @@ namespace Cobranca.Service
                     return result;
                 }
             }
+            else if (this.credenciais.operadora == Enum.Operadora.Itau)
+            {
+                result.Message = "Metodo não implementado para itaú";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Rede)
+            {
+                result.Message = "Metodo não implementado para a rede";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Zoop)
+            {
+                result.Message = "Metodo não implementado para a zoop";
+            }
 
             return result;
         }
@@ -450,7 +490,7 @@ namespace Cobranca.Service
             {
                 result.Message = "PIX não implementado para o asaas";
             }
-            else if (this.credenciais.operadora == Enum.Operadora.BancoInter)
+            else if (this.credenciais.operadora == Enum.Operadora.Inter)
             {
                 var identificador = pagamentoPix.Identificador;
                 if (string.IsNullOrEmpty(identificador))
@@ -550,7 +590,10 @@ namespace Cobranca.Service
                 result.JSON = resultPagamento.JSON;
                 result.Success = true;
             }
-           
+            else if (this.credenciais.operadora == Enum.Operadora.Rede)
+            {
+                result.Message = "Metodo não implementado para a rede";
+            }
 
             return result;
         }
@@ -564,7 +607,7 @@ namespace Cobranca.Service
             {
                 result.Message = "PIX não implementado para o asaas";
             }
-            else if (this.credenciais.operadora == Enum.Operadora.BancoInter)
+            else if (this.credenciais.operadora == Enum.Operadora.Inter)
             {
                 var service = new Inter(this.credenciais);
                 if (string.IsNullOrEmpty(credenciais.token))
@@ -613,6 +656,10 @@ namespace Cobranca.Service
                 result.JSON = resultConsultaPagamento.JSON;
                 result.Success = true;
             }
+            else if (this.credenciais.operadora == Enum.Operadora.Rede)
+            {
+                result.Message = "Metodo não implementado para a rede";
+            }
 
             return result;
         }
@@ -626,7 +673,7 @@ namespace Cobranca.Service
             {
                 result.Message = "PIX não implementado para o asaas";
             }
-            else if (this.credenciais.operadora == Enum.Operadora.BancoInter)
+            else if (this.credenciais.operadora == Enum.Operadora.Inter)
             {
                 //var service = new Inter(this.credenciais);
                 //if (string.IsNullOrEmpty(credenciais.token))
@@ -686,6 +733,10 @@ namespace Cobranca.Service
                 result.JSON = resultConsultaPagamento.JSON;
                 result.Success = true;
             }
+            else if (this.credenciais.operadora == Enum.Operadora.Rede)
+            {
+                result.Message = "Metodo não implementado para a rede";
+            }
 
             return result;
         }
@@ -716,9 +767,13 @@ namespace Cobranca.Service
             {
                 result.Message = "Metodo não implementado para o gerencianet";
             }
-            else if (this.credenciais.operadora == Enum.Operadora.BancoInter)
+            else if (this.credenciais.operadora == Enum.Operadora.Inter)
             {
                 result.Message = "Metodo não implementado para o banco inter";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Rede)
+            {
+                result.Message = "Metodo não implementado para a rede";
             }
             else if (this.credenciais.operadora == Enum.Operadora.Zoop)
             {
@@ -727,6 +782,100 @@ namespace Cobranca.Service
 
             return result;
         }
+
+        #endregion
+
+        #region Cartão Recebimento
+
+        public GenericResult<List<VendaCartaoRecebimentoResult>> CartaoVenda(VendaCartaoRecebimentoFiltro filtro)
+        {
+            var result = new GenericResult<List<VendaCartaoRecebimentoResult>>();
+            result.Result = new List<VendaCartaoRecebimentoResult>();
+            if (this.credenciais.operadora == Enum.Operadora.Asaas)
+            {
+                result.Message = "Cartão não implementado para o asaas";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
+            {
+                result.Message = "Cartão não implementado para o gerencianet";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Itau)
+            {
+                result.Message = "Cartão não implementado para o gerencianet";
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Rede)
+            {
+                var service = new Rede(this.credenciais);
+                var retorno = service.CartaoVenda(filtro);
+                if(!retorno.Success)
+                {
+                    result.Message = retorno.Message;
+                    return result;
+                }
+
+                foreach (var item in retorno.Result.Content.Transactions)
+                {
+                    var venda = new VendaCartaoRecebimentoResult
+                    {
+                        CodigoAutorizacao = item.StrAuthorizationCode,
+                        BandeiraCodigo = item.BrandCode.ToString(),
+                        DataHora = Convert.ToDateTime($"{item.SaleDate.ToShortDateString()} {item.SaleHour}"),
+                        ModalidadeTipo = item.Modality.Type,
+                        ProdutoCodigo = item.Modality.ProductCode.ToString(),
+                        ProdutoDescricao = item.Modality.Product,
+                        NSU = item.Nsu.ToString(),
+                        NumeroParcelas = item.InstallmentQuantity,
+                        Status = item.Status,
+                        Identificador = item.Tid,
+                        ValorBruto = item.Amount,
+                        ValorLiquido = item.NetAmount,
+                        ValorTaxa = item.FeeTotal,
+                        PercentualTaxa = item.MdrFee,
+                        //ValorTaxaAntecipacao
+                        //PercentualTaxaAntecipacao
+                        CartaoNumero = item.CardNumber,
+                        CapturaTipo = item.CaptureType,
+
+
+                    };
+                    result.Result.Add(venda);
+                }
+
+                result.Success = true;
+            }
+            else if (this.credenciais.operadora == Enum.Operadora.Zoop)
+            {
+                result.Message = "Cartão não implementado para o zoop";
+            }
+            return result;
+        }
+
+        //public GenericResult<RecebimentoResult> CartaoRecebimento(CartaoRecebimento cartaoRecebimento)
+        //{
+        //    var result = new GenericResult<RecebimentoResult>();
+        //    result.Result = new RecebimentoResult();
+        //    if (this.credenciais.operadora == Enum.Operadora.Asaas)
+        //    {
+        //        result.Message = "Cartão não implementado para o asaas";
+        //    }
+        //    else if (this.credenciais.operadora == Enum.Operadora.GerenciaNet)
+        //    {
+        //        result.Message = "Cartão não implementado para o gerencianet";
+        //    }
+        //    else if (this.credenciais.operadora == Enum.Operadora.Itau)
+        //    {
+        //        result.Message = "Cartão não implementado para o gerencianet";
+        //    }
+        //    else if (this.credenciais.operadora == Enum.Operadora.Rede)
+        //    {
+
+        //    }
+        //    else if (this.credenciais.operadora == Enum.Operadora.Zoop)
+        //    {
+        //        result.Message = "Cartão não implementado para o zoop";
+        //    }
+        //    return result;
+        //}
 
         #endregion
     }
