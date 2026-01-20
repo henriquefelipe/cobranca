@@ -23,7 +23,8 @@ namespace Cobranca.Operadora
 
         internal Itau(Credenciais credenciais)
         {
-            this.credenciais = credenciais;
+            this.credenciais = credenciais;            
+            this.credenciais.conta = string.IsNullOrEmpty(this.credenciais.conta) ? "00000000" : this.credenciais.conta.PadLeft(8, '0');
         }
 
         private X509Certificate2Collection GetCertificado()
@@ -101,6 +102,12 @@ namespace Cobranca.Operadora
                     {
                         pagamento.referencia_empresa = pagamento.referencia_empresa.Substring(0, 19);
                     }
+                }
+
+                if(pagamento.chave.Contains("GOV.BCB"))
+                {
+                    pagamento.emv = pagamento.chave;
+                    pagamento.chave = null;
                 }
 
                 var json = JsonConvert.SerializeObject(pagamento);

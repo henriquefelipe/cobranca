@@ -105,6 +105,8 @@ namespace Example
             this.btnGerarCobranca = new System.Windows.Forms.Button();
             this.tabPageCartao = new System.Windows.Forms.TabPage();
             this.tabPageCartaoRecebimento = new System.Windows.Forms.TabPage();
+            this.btnCartaoRecebimentoPagamentos = new System.Windows.Forms.Button();
+            this.btnCartaoRecebimentoVendas = new System.Windows.Forms.Button();
             this.tabPageCliente = new System.Windows.Forms.TabPage();
             this.btnCLientes2023 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
@@ -123,8 +125,6 @@ namespace Example
             this.btnPagarPix = new System.Windows.Forms.Button();
             this.tabPagePIX = new System.Windows.Forms.TabPage();
             this.imgQrCode = new System.Windows.Forms.PictureBox();
-            this.btnCartaoRecebimentoVendas = new System.Windows.Forms.Button();
-            this.btnCartaoRecebimentoPagamentos = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageAsaas.SuspendLayout();
             this.tabPageInter.SuspendLayout();
@@ -878,6 +878,7 @@ namespace Example
             this.btnDevolucaoCobranca.TabIndex = 18;
             this.btnDevolucaoCobranca.Text = "Devolução Cob.";
             this.btnDevolucaoCobranca.UseVisualStyleBackColor = true;
+            this.btnDevolucaoCobranca.Click += new System.EventHandler(this.btnDevolucaoCobranca_Click);
             // 
             // btnStatusCobranca
             // 
@@ -888,6 +889,7 @@ namespace Example
             this.btnStatusCobranca.TabIndex = 17;
             this.btnStatusCobranca.Text = "Status Cobrança";
             this.btnStatusCobranca.UseVisualStyleBackColor = true;
+            this.btnStatusCobranca.Click += new System.EventHandler(this.btnStatusCobranca_Click);
             // 
             // btnBuscarCobranca
             // 
@@ -898,6 +900,7 @@ namespace Example
             this.btnBuscarCobranca.TabIndex = 16;
             this.btnBuscarCobranca.Text = "Buscar Cobrança";
             this.btnBuscarCobranca.UseVisualStyleBackColor = true;
+            this.btnBuscarCobranca.Click += new System.EventHandler(this.btnBuscarCobranca_Click);
             // 
             // btnGerarCobranca
             // 
@@ -908,6 +911,7 @@ namespace Example
             this.btnGerarCobranca.TabIndex = 1;
             this.btnGerarCobranca.Text = "Gerar Cobrança";
             this.btnGerarCobranca.UseVisualStyleBackColor = true;
+            this.btnGerarCobranca.Click += new System.EventHandler(this.btnGerarCobranca_Click);
             // 
             // tabPageCartao
             // 
@@ -929,6 +933,28 @@ namespace Example
             this.tabPageCartaoRecebimento.TabIndex = 2;
             this.tabPageCartaoRecebimento.Text = "Cartão Recebimento";
             this.tabPageCartaoRecebimento.UseVisualStyleBackColor = true;
+            // 
+            // btnCartaoRecebimentoPagamentos
+            // 
+            this.btnCartaoRecebimentoPagamentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCartaoRecebimentoPagamentos.Location = new System.Drawing.Point(170, 16);
+            this.btnCartaoRecebimentoPagamentos.Name = "btnCartaoRecebimentoPagamentos";
+            this.btnCartaoRecebimentoPagamentos.Size = new System.Drawing.Size(154, 33);
+            this.btnCartaoRecebimentoPagamentos.TabIndex = 3;
+            this.btnCartaoRecebimentoPagamentos.Text = "Pagamentos";
+            this.btnCartaoRecebimentoPagamentos.UseVisualStyleBackColor = true;
+            this.btnCartaoRecebimentoPagamentos.Click += new System.EventHandler(this.btnCartaoRecebimentoPagamentos_Click);
+            // 
+            // btnCartaoRecebimentoVendas
+            // 
+            this.btnCartaoRecebimentoVendas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCartaoRecebimentoVendas.Location = new System.Drawing.Point(10, 16);
+            this.btnCartaoRecebimentoVendas.Name = "btnCartaoRecebimentoVendas";
+            this.btnCartaoRecebimentoVendas.Size = new System.Drawing.Size(154, 33);
+            this.btnCartaoRecebimentoVendas.TabIndex = 2;
+            this.btnCartaoRecebimentoVendas.Text = "Vendas";
+            this.btnCartaoRecebimentoVendas.UseVisualStyleBackColor = true;
+            this.btnCartaoRecebimentoVendas.Click += new System.EventHandler(this.btnCartaoRecebimentoVendas_Click);
             // 
             // tabPageCliente
             // 
@@ -957,6 +983,7 @@ namespace Example
             this.btnCLientes2023.TabIndex = 35;
             this.btnCLientes2023.Text = "Buscar";
             this.btnCLientes2023.UseVisualStyleBackColor = true;
+            this.btnCLientes2023.Click += new System.EventHandler(this.btnCLientes2023_Click);
             // 
             // label16
             // 
@@ -986,6 +1013,7 @@ namespace Example
             this.btnCadastrarCliente.TabIndex = 32;
             this.btnCadastrarCliente.Text = "Cadastrar Cliente";
             this.btnCadastrarCliente.UseVisualStyleBackColor = true;
+            this.btnCadastrarCliente.Click += new System.EventHandler(this.btnCadastrarCliente_Click);
             // 
             // btnBuscarCliente
             // 
@@ -996,6 +1024,7 @@ namespace Example
             this.btnBuscarCliente.TabIndex = 31;
             this.btnBuscarCliente.Text = "Buscar Cliente";
             this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
             // 
             // txtCNPJCPF
             // 
@@ -1076,6 +1105,7 @@ namespace Example
             this.btnConsultarVariosPix.TabIndex = 35;
             this.btnConsultarVariosPix.Text = "Cons. Vários PIX";
             this.btnConsultarVariosPix.UseVisualStyleBackColor = true;
+            this.btnConsultarVariosPix.Click += new System.EventHandler(this.btnConsultarVariosPix_Click);
             // 
             // btnConsultaPix
             // 
@@ -1086,6 +1116,7 @@ namespace Example
             this.btnConsultaPix.TabIndex = 34;
             this.btnConsultaPix.Text = "Consulta PIX";
             this.btnConsultaPix.UseVisualStyleBackColor = true;
+            this.btnConsultaPix.Click += new System.EventHandler(this.btnConsultaPix_Click);
             // 
             // btnPagarPix
             // 
@@ -1096,6 +1127,7 @@ namespace Example
             this.btnPagarPix.TabIndex = 33;
             this.btnPagarPix.Text = "Pagar PIX";
             this.btnPagarPix.UseVisualStyleBackColor = true;
+            this.btnPagarPix.Click += new System.EventHandler(this.btnPagarPix_Click);
             // 
             // tabPagePIX
             // 
@@ -1114,28 +1146,6 @@ namespace Example
             this.imgQrCode.Size = new System.Drawing.Size(176, 211);
             this.imgQrCode.TabIndex = 33;
             this.imgQrCode.TabStop = false;
-            // 
-            // btnCartaoRecebimentoVendas
-            // 
-            this.btnCartaoRecebimentoVendas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCartaoRecebimentoVendas.Location = new System.Drawing.Point(10, 16);
-            this.btnCartaoRecebimentoVendas.Name = "btnCartaoRecebimentoVendas";
-            this.btnCartaoRecebimentoVendas.Size = new System.Drawing.Size(154, 33);
-            this.btnCartaoRecebimentoVendas.TabIndex = 2;
-            this.btnCartaoRecebimentoVendas.Text = "Vendas";
-            this.btnCartaoRecebimentoVendas.UseVisualStyleBackColor = true;
-            this.btnCartaoRecebimentoVendas.Click += new System.EventHandler(this.btnCartaoRecebimentoVendas_Click);
-            // 
-            // btnCartaoRecebimentoPagamentos
-            // 
-            this.btnCartaoRecebimentoPagamentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCartaoRecebimentoPagamentos.Location = new System.Drawing.Point(170, 16);
-            this.btnCartaoRecebimentoPagamentos.Name = "btnCartaoRecebimentoPagamentos";
-            this.btnCartaoRecebimentoPagamentos.Size = new System.Drawing.Size(154, 33);
-            this.btnCartaoRecebimentoPagamentos.TabIndex = 3;
-            this.btnCartaoRecebimentoPagamentos.Text = "Pagamentos";
-            this.btnCartaoRecebimentoPagamentos.UseVisualStyleBackColor = true;
-            this.btnCartaoRecebimentoPagamentos.Click += new System.EventHandler(this.btnCartaoRecebimentoPagamentos_Click);
             // 
             // Form1
             // 

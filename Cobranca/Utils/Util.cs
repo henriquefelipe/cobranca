@@ -21,5 +21,7 @@ namespace Cobranca.Utils
             var cultureInfo = new CultureInfo("en-US");            
             return String.Format(cultureInfo, "{0:0.00}", valor);           
         }
+
+
     }
 }

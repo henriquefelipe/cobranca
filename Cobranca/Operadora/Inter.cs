@@ -4,12 +4,8 @@ using Cobranca.Utils;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cobranca.Operadora
 {
@@ -67,7 +63,9 @@ namespace Cobranca.Operadora
                     result.Message = "certificado não informado";
                     return result;
                 }
-                                
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
                 var client = new RestClient($"{URL_BASE}/oauth/v2/token");
                 client.ClientCertificates = GetCertificado();
                 client.Proxy = new WebProxy();
@@ -85,8 +83,17 @@ namespace Cobranca.Operadora
                 }
                 else
                 {
-                    result.Message = responseContent;
+                    if (string.IsNullOrEmpty(responseContent))
+                    {
+                        result.Message = restResponse.ErrorMessage;
+                    }
+                    else
+                    {
+                        result.Message = responseContent;
+                    }
                 }
+
+                result.JSON = responseContent;
             }
             catch (Exception ex)
             {
@@ -102,6 +109,8 @@ namespace Cobranca.Operadora
             try
             {
                 var json = JsonConvert.SerializeObject(pagamento);
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
                 var client = new RestClient($"{URL_BASE}/banking/v2/pix");
                 client.ClientCertificates = GetCertificado();
@@ -120,7 +129,14 @@ namespace Cobranca.Operadora
                 }
                 else
                 {
-                    result.Message = responseContent;
+                    if (string.IsNullOrEmpty(responseContent))
+                    {
+                        result.Message = restResponse.ErrorMessage;
+                    }
+                    else
+                    {
+                        result.Message = responseContent;
+                    }
                 }
 
                 result.JSON = responseContent;
@@ -137,6 +153,8 @@ namespace Cobranca.Operadora
             var result = new GenericResult<InterPixConsultaPagamentoRetorno>();
             try
             {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
                 var client = new RestClient($"{URL_BASE}/banking/v2/pix/{identificador}");
                 client.ClientCertificates = GetCertificado();
                 client.Proxy = new WebProxy();
@@ -158,8 +176,15 @@ namespace Cobranca.Operadora
                 //    }
                 //}
                 else
-                {                    
-                    result.Message = responseContent;
+                {
+                    if (string.IsNullOrEmpty(responseContent))
+                    {
+                        result.Message = restResponse.ErrorMessage;
+                    }
+                    else
+                    {
+                        result.Message = responseContent;
+                    }
                 }
 
                 result.JSON = responseContent;

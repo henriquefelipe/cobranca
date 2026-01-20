@@ -570,7 +570,7 @@ namespace Cobranca.Service
                 var pagamento = new ItauPixPagamento()
                 {
                     chave = pagamentoPix.Chave,
-                    valor_pagamento = pagamentoPix.Valor,
+                    valorPagamento = pagamentoPix.Valor,
                     data_pagamento = pagamentoPix.DataPagamento == null ? DateTime.Now.ToString("yyyy-MM-dd") : pagamentoPix.DataPagamento.Value.ToString("yyyy-MM-dd"),
                     identificacao_comprovante = identificador,
                     informacoes_entre_usuarios = "Pagamento via API",
@@ -627,8 +627,11 @@ namespace Cobranca.Service
                     return result;
                 }
 
-                //result.Result.Status = resultConsultaPagamento.Result.;
-                //result.Result.Status = resultConsultaPagamento.Result.tipoRetorno;
+                if (resultConsultaPagamento.Result.transacaoPix != null)
+                {
+                    result.Result.Status = resultConsultaPagamento.Result.transacaoPix.status;
+                }
+                
                 result.JSON = resultConsultaPagamento.JSON;
                 result.Success = true;
             }

@@ -14,6 +14,7 @@ namespace Cobranca.Enum.Itau
         public const string EFETUADO = "Efetuado";
         public const string NAO_EFETUADO = "Não Efetuado";
         public const string PENDENTE_DE_ALTERACAO_EXCLUSAO = "Pendente de alteração/exclusão";
-        public const string REJEITADO_EM_ARQUIVO = "Rejeitado em arquivo";        
+        public const string REJEITADO_EM_ARQUIVO = "Rejeitado em arquivo";
+        public const string REJEITADO = "Rejeitado";
     }
 }

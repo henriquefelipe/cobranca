@@ -10,7 +10,7 @@ namespace Cobranca.Domain.Itau
     {
         public ItauPagador()
         {
-            tipo_conta = "C";
+            tipo_conta = "CC";
             tipo_pessoa = "J";  
             modulo_sispag = "Fornecedores";
         }
